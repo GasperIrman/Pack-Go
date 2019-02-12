@@ -15,3 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::resource('motorhomes', 'MotorhomeController'); 
+Route::resource('rents', 'RentController'); 
+Route::resource('rvmodels', 'RVModelController'); 
+Route::resource('users', 'UserController'); 
+Route::resource('cities', 'CityController'); 
+Route::resource('brands', 'BrandController'); 
+
+
+
+
