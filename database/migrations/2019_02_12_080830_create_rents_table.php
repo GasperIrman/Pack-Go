@@ -15,6 +15,9 @@ class CreateRentsTable extends Migration
     {
         Schema::create('rents', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('opinion');
+            $table->timestamp('rent_start')->nullable();
+            $table->timestamp('rent_end')->nullable();
             $table->timestamps();
         });
     }

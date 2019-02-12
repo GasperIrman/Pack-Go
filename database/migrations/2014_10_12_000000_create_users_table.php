@@ -22,8 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('pic_url');
             $table->float('credits');
             $table->string('address');
-            $table->bool('provider');
-            $table->bool('admin');
+            $table->boolean('provider');
+            $table->boolean('admin');
             $table->rememberToken();
             $table->timestamps();
         });

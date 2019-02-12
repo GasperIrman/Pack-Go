@@ -15,6 +15,10 @@ class CreateMotorhomesTable extends Migration
     {
         Schema::create('motorhomes', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('description');
+            $table->integer('beds');
+            $table->float('price');
+            $table->integer('rating');
             $table->timestamps();
         });
     }

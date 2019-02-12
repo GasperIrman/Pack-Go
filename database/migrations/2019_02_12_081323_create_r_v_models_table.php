@@ -15,6 +15,10 @@ class CreateRVModelsTable extends Migration
     {
         Schema::create('models', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('horse_power');
+            $table->timestamp('year');
+            $table->integer('affordability_rating');
+            $table->integer('luxury');
             $table->timestamps();
         });
     }
