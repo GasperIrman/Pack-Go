@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+<nav class="navbar navbar-expand-md navbar navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
             {{ config('app.name', 'Laravel') }}
@@ -12,7 +12,7 @@
             <ul class="navbar-nav mr-auto">
 
             </ul>
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav nav nav-pills nav-fill">
       
                 <li class="nav-item">
                   <a class="nav-link" href="#">Home</a>
@@ -24,6 +24,7 @@
                       <li class="nav-item">
                           <a class="nav-link" href="#">Motorhomes</a>
                         </li>
+                        
                         
                        
               </ul> 
