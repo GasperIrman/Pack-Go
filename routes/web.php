@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+
 
 Route::resource('motorhomes', 'MotorhomeController'); 
 Route::resource('rents', 'RentController'); 
@@ -25,3 +23,6 @@ Route::resource('brands', 'BrandController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/', 'PageController@index' );
+Route::get('/about', 'PageController@about' );
