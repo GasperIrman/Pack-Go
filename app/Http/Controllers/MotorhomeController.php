@@ -46,7 +46,40 @@ class MotorhomeController extends Controller
             'cover_image' => 'image|nullable|max:1999',
            
         ]);
+        if($request->hasFile('cover_image')){
+            //Handle File Upload
+if($request->hasFile('cover_image')){
+//Get filename with the extension
+$filenamewithExt = $request->file('cover_image')->getClientOriginalName();
+
+//Get just filename
+$filename = pathinfo($filenamewithExt,PATHINFO_FILENAME);
+
+//Get just ext
+$extension = $request->file('cover_image')->guessClientExtension();
+
+//FileName to store
+$fileNameToStore = time().'.'.$extension;
+
+//Upload Image
+$path = $request->file('cover_image')->storeAs('public/cover_images/',$fileNameToStore);
     }
+    else{
+        $fileNameToStore='noimage.jpg';
+    }
+     
+    $motorhome = new Motorhome;
+    $motorhome->description = $request->input('description')  ;
+    $motorhome->user_id =auth()->user()->id; 
+    $motorhome->model_id= $request->input('model');
+    $motorhome->beds= $request->input('beds');
+    $motorhome->price= $request->input('price');
+    $motorhome->cover_image= $fileNameToStore;
+    $motorhome->save();
+    return redirect('/motorhomes')->with('success','Motorhome Added');
+
+    }
+}
 
     /**
      * Display the specified resource.
@@ -54,9 +87,10 @@ class MotorhomeController extends Controller
      * @param  \App\Motorhome  $motorhome
      * @return \Illuminate\Http\Response
      */
-    public function show(Motorhome $motorhome)
+    public function show($id)
     {
-        //
+        $motorhome = Motorhome::find($id);
+        return view('motorhomes.show')->with('motorhome', $motorhome );
     }
 
     /**
@@ -65,9 +99,15 @@ class MotorhomeController extends Controller
      * @param  \App\Motorhome  $motorhome
      * @return \Illuminate\Http\Response
      */
-    public function edit(Motorhome $motorhome)
+    public function edit($id)
     {
-        //
+        $motorhome = Motorhome::find($id);
+        //check for correct user
+        if(auth()->user()->id !== $motorhome->user_id ){
+            return redirect('/motorhomes ')->with('error', 'Unautharize page' );
+        }
+        
+            return view('motorhomes.edit')->with('motorhome', $motorhome );
     }
 
     /**
@@ -79,7 +119,37 @@ class MotorhomeController extends Controller
      */
     public function update(Request $request, Motorhome $motorhome)
     {
-        //
+        $this->validate($request, [
+            'description' => 'required',
+            'price' => 'required',
+            'beds' => 'required',
+           
+        ]);
+          
+            //Handle File Upload
+if($request->hasFile('cover_image')){
+//Get filename with the extension
+$filenamewithExt = $request->file('cover_image')->getClientOriginalName();
+//Get just filename
+$filename = pathinfo($filenamewithExt,PATHINFO_FILENAME);
+//Get just ext
+$extension = $request->file('cover_image')->guessClientExtension();
+//FileName to store
+$fileNameToStore = time().'.'.$extension;
+//Upload Image
+$path = $request->file('cover_image')->storeAs('public/cover_images/',$fileNameToStore);
+    }
+     
+
+              $motorhome = Motorhome::find($id);
+              $motorhome->description = $request->input('description')  ;
+            $motorhome->beds= $request->input('beds');
+            $motorhome->price= $request->input('price');
+             if($request->hasFile('cover_image')){
+              $car->cover_image = $fileNameToStore;
+                 }
+            $motorhome->save();
+    return redirect('/motorhomes')->with('success','Motorhome Updated');
     }
 
     /**
@@ -88,8 +158,14 @@ class MotorhomeController extends Controller
      * @param  \App\Motorhome  $motorhome
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Motorhome $motorhome)
+    public function destroy($id)
     {
-        //
+        $motorhome = Motorhome::find($id);
+        if(auth()->user()->id !== $motorhome->user_id ){
+            return redirect('/motorhomes ')->with('error', 'Unautharize page' );
+        }
+        
+        $motorhome ->  delete();
+        return redirect('/motorhomes')->with('success','Motorhome Deleted ');
     }
 }
