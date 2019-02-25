@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Motorhome;
+use App\Brand;
+use App\RVModel;
 use Illuminate\Http\Request;
 
 class MotorhomeController extends Controller
@@ -14,7 +16,8 @@ class MotorhomeController extends Controller
      */
     public function index()
     {
-        //
+        $motorhomes = Motorhome::orderBy('id','desc')->paginate(10);
+        return view('motorhomes.index')->with('motorhomes',$motorhomes);
     }
 
     /**
