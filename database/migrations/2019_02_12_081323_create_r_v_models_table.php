@@ -19,6 +19,7 @@ class CreateRVModelsTable extends Migration
             $table->timestamp('year');
             $table->integer('affordability_rating');
             $table->integer('luxury');
+            $table->integer('brand_id');
             $table->timestamps();
         });
     }

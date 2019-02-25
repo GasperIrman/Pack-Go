@@ -17,6 +17,7 @@ class CreateBrandsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('likes');
+            $table->integer('country_id');
             $table->timestamps();
         });
     }
