@@ -21,6 +21,7 @@ class CreateMotorhomesTable extends Migration
             $table->integer('rating');
             $table->integer('model_id');
             $table->integer('user_id');
+            $table->string('cover_image');
             $table->timestamps();
         });
     }
