@@ -27,7 +27,8 @@ class MotorhomeController extends Controller
      */
     public function create()
     {
-        //
+        $items = RVModel::pluck('name', 'id');
+        return view('motorhomes.create')->with('items', $items );
     }
 
     /**
@@ -38,7 +39,13 @@ class MotorhomeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'description' => 'required',
+            'price' => 'required',
+            'beds' => 'required',
+            'cover_image' => 'image|nullable|max:1999',
+           
+        ]);
     }
 
     /**
