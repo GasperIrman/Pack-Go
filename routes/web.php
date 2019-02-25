@@ -22,6 +22,6 @@ Route::resource('users', 'UserController');
 Route::resource('cities', 'CityController'); 
 Route::resource('brands', 'BrandController'); 
 
+Auth::routes();
 
-
-
+Route::get('/home', 'HomeController@index')->name('home');
