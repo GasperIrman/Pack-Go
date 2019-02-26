@@ -16,7 +16,7 @@
     {!! Form::close() !!}
 </div>
 <script>
-    $('#PwrdBtn').onclick(function(){
+    $('#PwrdBtn').click(function(){
         console.log('asikdoij');
     });
 </script>
