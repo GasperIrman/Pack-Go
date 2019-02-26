@@ -46,7 +46,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        return view('users.show')->with('user', $user);
     }
 
     /**
@@ -71,6 +72,15 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //Update user info TODO
+        $this->validate($request, [
+            'name' => 'required',
+            'address' => 'required',
+        ]);
+        $user = User::find($id);
+        $user->name = $request->input('name');
+        $user->email = $request->input('address');
+        $user->update();
+        return redirect()->back();
     }
 
     /**

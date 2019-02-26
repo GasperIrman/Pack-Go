@@ -21,7 +21,7 @@
                         </div>
                         <div class="col-md-8 col-sm-8">
                         <h3><a href="motorhomes/{{$motorhome->id}}">{{$motorhome->model->name}}</a></h3>
-                        <small>by </small>
+                        <small>by <a href="{{route('users.show', $motorhome->user)}}">{{$motorhome->user->name}}</a></small>
                     </div>
                 </div>
             </div> 
