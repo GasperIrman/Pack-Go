@@ -18,7 +18,7 @@ class CreateMotorhomesTable extends Migration
             $table->string('description');
             $table->integer('beds');
             $table->float('price');
-            $table->integer('rating');
+            $table->integer('rating')->nullable();;
             $table->integer('model_id');
             $table->integer('user_id');
             $table->string('cover_image');
