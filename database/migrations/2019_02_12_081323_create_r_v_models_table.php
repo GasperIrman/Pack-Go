@@ -13,7 +13,7 @@ class CreateRVModelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('models', function (Blueprint $table) {
+        Schema::create('r_v_models', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('horse_power');
             $table->timestamp('year');
@@ -30,6 +30,6 @@ class CreateRVModelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('models');
+        Schema::dropIfExists('r_v_models');
     }
 }

@@ -20,7 +20,7 @@
                             <img style="width:100%" src="storage/cover_images/{{$motorhome->cover_image}}">
                         </div>
                         <div class="col-md-8 col-sm-8">
-                        <h3><a href="motorhomes/{{$motorhome->id}}">{{$motorhome->models->name}}</a></h3>
+                        <h3><a href="motorhomes/{{$motorhome->id}}">{{$motorhome->rvmodel->name}}</a></h3>
                         <small>by {{$motorhome->user->name}}</small>
                     </div>
                 </div>
