@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('address')->nullable(true);
             $table->boolean('provider')->default(false);
             $table->boolean('admin')->default(false);
+            $table->integer('city_id')->default('0');
             $table->rememberToken();
             $table->timestamps();
         });

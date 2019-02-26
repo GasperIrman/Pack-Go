@@ -13,12 +13,14 @@ class CreateRVModelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('models', function (Blueprint $table) {
+        Schema::create('r_v_models', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
             $table->integer('horse_power');
             $table->timestamp('year');
             $table->integer('affordability_rating');
             $table->integer('luxury');
+            $table->integer('brand_id');
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ class CreateRVModelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('models');
+        Schema::dropIfExists('r_v_models');
     }
 }

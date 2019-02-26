@@ -18,6 +18,8 @@ class CreateRentsTable extends Migration
             $table->string('opinion');
             $table->timestamp('rent_start')->nullable();
             $table->timestamp('rent_end')->nullable();
+            $table->integer('user_id');
+            $table->integer('motorhome_id');
             $table->timestamps();
         });
     }
