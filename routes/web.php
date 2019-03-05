@@ -31,3 +31,6 @@ Route::post('/storePassword', 'UserController@passStore');
 
 //Za email verification
 Auth::routes(['verify' => true]);
+
+//za rent da dobis motorhome id
+Route::get('/rents/create/{id}', 'RentController@create');
