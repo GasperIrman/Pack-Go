@@ -17,7 +17,7 @@
 </div>
 <script>
     $('#PwrdBtn').click(function(){
-        var pass = prompt("Please your current password:");
+        var pass = prompt("Please enter your current password:");
         var newPass
         var token = '{{Session::token()}}';
         if (pass != null || pass != "") {
