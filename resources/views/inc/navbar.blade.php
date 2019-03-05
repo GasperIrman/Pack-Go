@@ -1,5 +1,5 @@
 
-<nav class="navbar navbar-expand-md navbar navbar-dark bg-dark navbar-laravel">
+<nav class="navbar navbar-expand-md navbar navbar-light  navbar-laravel">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
                 {{ config('app.name', 'Laravel') }}
@@ -19,25 +19,26 @@
                     <!-- Authentication Links -->
                     @guest
                     <li class="nav-item">
-                            <a class="nav-link" href="/motorhomes">Motorhomes</a>
+                            <a class="nav-link" href="/motorhomes">MOTORHOMES</a>
                         </li>
                         <li class="nav-item">
-                                <a class="nav-link" href="/about">About</a>
+                                <a class="nav-link" href="/about">ABOUT</a>
                             </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        <li class="nav-item" style="margin-right:10px">
+                                <a href="{{ route('login') }}">  <button type="button" class="btn btn-outline-dark" >LOGIN</button></a>
                         </li>
                         @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            <li class="nav-item" style="margin-right:10px">
+                               
+                                <a href="{{ route('register') }}">  <button type="button" class="btn btn-outline-dark" >REGISTER</button></a> 
                             </li>
                         @endif
                     @else
                     <li class="nav-item">
-                            <a class="nav-link" href="/motorhomes">Motorhomes</a>
+                            <a class="nav-link" href="/motorhomes">MOTORHOMES</a>
                         </li>
                         <li class="nav-item">
-                                <a class="nav-link" href="/about">About</a>
+                                <a class="nav-link" href="/about">ABOUT</a>
                             </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
