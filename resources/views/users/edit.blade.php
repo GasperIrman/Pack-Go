@@ -7,7 +7,7 @@
     {{ Form::label('Name') }}
     {{ Form::text('name', $user->name) }}<br>
     {{ Form::button('Change Password', ['id' => 'PwrdBtn']) }}
-    {{ Form::text('password', $user->password, ['style' => '', 'id' => 'asd']) }}<br>
+    {{ Form::text('password', $user->password, ['style' => 'visibility: hidden', 'id' => 'asd']) }}<br>
     {{ Form::label('Profile picture') }}
     {{ Form::file('image') }}<br>
     {{ Form::label('Address') }}
@@ -17,7 +17,51 @@
 </div>
 <script>
     $('#PwrdBtn').click(function(){
-        console.log('asikdoij');
+        var pass = prompt("Please your current password:");
+        var newPass
+        var token = '{{Session::token()}}';
+        if (pass != null || pass != "") {
+        //Funkem en check z passwordu da vidim ce je pravi pa odprem se en prompt
+        $.ajax({
+            url: "/checkPassword",
+            method: 'POST',
+            data: {
+                id: {!!$user->id!!}, 
+                password: pass,
+                _token: token
+            }
+        }).done(function(data){
+            console.log(data);
+            if(data == null || data == "")
+            {
+                alert('Password is incorrect!');
+            }
+            else
+            {
+                newPass = prompt("Enter new password: ");
+                if(newPass == prompt("Confirm new password: ") && newPass != null && newPass != "")
+                {
+                    //Shranim password
+                    $.ajax({
+                        url: "/storePassword",
+                        method: 'POST',
+                        data: {
+                            id: {!!$user->id!!}, 
+                            password: newPass,
+                            _token: token
+                        }
+                    }).done(function(data){
+                        alert(data);
+                    });
+                }
+                else{
+                    //Nista enaka
+                    alert("Passwords do not match!");
+                }
+            }
+            
+        });
+      }
     });
 </script>
 @endsection

@@ -16,7 +16,7 @@
 Route::resource('motorhomes', 'MotorhomeController'); 
 Route::resource('rents', 'RentController'); 
 Route::resource('rvmodels', 'RVModelController'); 
-Route::resource('users', 'UserController'); 
+Route::resource('users', 'UserController')->middleware('verified');; 
 Route::resource('cities', 'CityController'); 
 Route::resource('brands', 'BrandController'); 
 
@@ -26,3 +26,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', 'PageController@index' );
 Route::get('/about', 'PageController@about' );
+Route::post('/checkPassword', 'UserController@passCheck')->name('check');
+Route::post('/storePassword', 'UserController@passStore');
+
+//Za email verification
+Auth::routes(['verify' => true]);

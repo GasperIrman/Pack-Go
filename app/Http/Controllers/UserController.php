@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Hashing\BcryptHasher;
+use Illuminate\Support\Facades\Hash;
 use App\User;
 
 class UserController extends Controller
@@ -92,5 +94,23 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function passCheck(Request $rq)
+    {
+        $user = User::find($rq['id']);
+        $hasher = app('hash');
+        if($hasher->check($rq['password'], $user->password))
+        {
+            return 'true';
+        }
+    }
+
+    public function passStore(Request $rq)
+    {
+        $user = User::find($rq['id']);
+        $user->password = Hash::make($rq['password']);
+        $user->update();
+        return 'Password updated';
     }
 }
