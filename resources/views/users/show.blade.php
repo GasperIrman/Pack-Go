@@ -5,7 +5,7 @@ Ttmu kurcu je ime {{$user->name}}<br>
 Tt kurac ma takle mail {{$user->email}}<br>
 profilka {{$user->pic_url}}<br>
 @if($user->provider)
-	@foreach($user->motorhome as $rv)
+	@foreach($user->motorhome->sortByDesc('created_at') as $rv)
 	<div class="jumbotron jumbotron-fluid" style="overflow: hidden">
 		<div class="col-md-4 col-sm-4">
                             <img style="width:100%" src="/storage/cover_images/{{$rv->cover_image}}">
