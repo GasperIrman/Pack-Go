@@ -9,7 +9,7 @@
     <div class="well">
             <div class="row">
            <div class="col-md-8 col-sm-8 ">
-  <img style="width:500px" src="/lsapp/public/storage/cover_images/{{$motorhome->cover_image}}">
+  <img style="width:500px" src="/storage/cover_images/{{$motorhome->cover_image}}">
            </div>
            <div class="col-md-4 col-sm-4">
 
