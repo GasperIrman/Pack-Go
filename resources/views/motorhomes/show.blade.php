@@ -30,5 +30,26 @@
 </div>
             </div>
 
-<small>Added by {{$motorhome->user->name}}</small>
+<small>Added by {{$motorhome->user->name}}</small> <br>
+
+
+@if(!Auth::guest())
+
+<a href="/rents/create/{{$motorhome->id}}"><button type="button" class="btn btn-outline-dark" style="position: absolute;
+    right: 0px;margin-right: 50px;">RENT</button></a><br>
+    
+@if(Auth::user()->id == $motorhome->user_id ||Auth::user()->admin == 1)
+    
+<a href="/motorhomes/{{$motorhome->id}}/edit" class="btn btn-default">Edit</a>
+{!!Form::open(['action' => ['MotorhomeController@destroy', $motorhome->id], 'method' => 'POST', 'class' => 'pull-right'])!!}
+{{Form::hidden('_method', 'DELETE')}}
+{{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
+{!!Form::close()!!}
+@endif 
+
+
+
+@endif
+
+
 @endsection
