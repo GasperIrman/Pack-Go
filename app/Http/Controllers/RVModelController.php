@@ -16,7 +16,7 @@ class RVModelController extends Controller
      */
     public function index()
     {
-        $rvmodels = RVModel::orderBy('id','desc')->paginate(10);
+        $rvmodels = RVModel::orderBy('id','desc')->get();
         return view('rvmodels.index')->with('rvmodels',$rvmodels);
     }
 

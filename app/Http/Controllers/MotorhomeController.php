@@ -21,7 +21,7 @@ class MotorhomeController extends Controller
     }
     public function index()
     {
-        $motorhomes = Motorhome::orderBy('id','desc')->paginate(10);
+        $motorhomes = Motorhome::orderBy('id','desc')->get();
         return view('motorhomes.index')->with('motorhomes',$motorhomes);
     }
 
