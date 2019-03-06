@@ -30,7 +30,11 @@ class BrandController extends Controller
     public function create()
     {
         $items = Country::pluck('name', 'id');
-        return view('brands.create')->with('items', $items );
+        if(auth()->user()->admin == 1)  {
+            return view('brands.create')->with('items', $items );
+        }
+        return redirect('/ ')->with('error', 'Unautharize page' );
+        
     }
 
     /**
@@ -76,7 +80,12 @@ class BrandController extends Controller
     public function edit($id)
     {
         $brand = Brand::find($id);
-        return view('brands.edit')->with('brand', $brand );
+
+        if(auth()->user()->admin == 1)  {
+            return view('brands.edit')->with('brand', $brand );
+        }
+        return redirect('/ ')->with('error', 'Unautharize page' );
+       
     }
 
     /**
@@ -108,7 +117,11 @@ class BrandController extends Controller
     public function destroy($id)
     {
         $brand = Brand::find($id);
-        $brand ->  delete();
-        return redirect('/brands')->with('success','Brand Deleted ');
+        if(auth()->user()->admin == 1)  {
+            $brand ->  delete();
+            return redirect('/brands')->with('success','Brand Deleted ');
+        }
+        return redirect('/ ')->with('error', 'Unautharize page' );
+       
     }
 }

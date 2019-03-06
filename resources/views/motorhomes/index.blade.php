@@ -7,7 +7,13 @@
                     <h1>Motorhomes</h1>
             </div>
             <div class="col-md-4 col-sm-4">
+                    @if(!Auth::guest())
+                    @if(Auth::user()->provider == 1 || Auth::user()->admin == 1)
                     <a href="/motorhomes/create" class="btn btn-primary">Add a motorhome</a>
+                    @else
+
+                    @endif
+                    @endif
         </div>
     </div>
     
