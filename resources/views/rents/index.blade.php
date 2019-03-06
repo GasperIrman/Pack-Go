@@ -10,7 +10,7 @@
                             <th>Rent start</th>
                             <th>Rent stop</th>
                             @if(!Auth::guest())
-                            @if(Auth::user()->id == 1)
+                            @if(Auth::user()->admin == 1)
                             <th>  </th>
                             <th>  </th>
                             @endif
@@ -27,7 +27,7 @@
                                 <td>  {{date('d-m-Y', strtotime($rent->rent_end))}}</td>
 
                                 @if(!Auth::guest())
-                                @if(Auth::user()->id == 1)
+                                @if(Auth::user()->admin == 1 )
                                 <td><a href="/rents/{{$rent->id}}/edit" class="btn btn-default">Edit</a> </td>
                                 <td>
                                 {!!Form::open(['action' => ['RentController@destroy', $rent->id], 'method' => 'POST', 'class' => 'pull-right'])!!}
@@ -45,7 +45,7 @@
                     {{$rents->links()}}
 
                     @else
-                        <p> There are no brands </p> 
+                        <p> There are no rents </p> 
                     
                     @endif
 @endsection

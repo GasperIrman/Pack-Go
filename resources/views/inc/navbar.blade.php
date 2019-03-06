@@ -48,10 +48,27 @@
                         <li class="nav-item">
                                 <a class="nav-link" href="/about">ABOUT</a>
                             </li>
+
+                            @if(!Auth::guest())
+                            @if(Auth::user()->admin == 1)
+                            <li class="nav-item">
+                                   <a class="nav-link" href="/rvmodels">MODELS</a>
+                               </li>
+                               <li class="nav-item">
+                                       <a class="nav-link" href="/brands">BRADNS</a>
+                                   </li>
+                                   <li class="nav-item">
+                                        <a class="nav-link" href="/rents">RENTS</a>
+                                    </li>
+                           @else
+
+                                @endif
+                               @endif
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
+                           
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="/users/{{Auth::user()->id}}/edit">Edit profile</a>

@@ -43,7 +43,7 @@
 
 
     
-@if(Auth::user()->id == $rent->user_id)
+@if(Auth::user()->id == $rent->user_id ||Auth::user()->admin == 1)
     
 
 <a href="/rents/{{$rent->id}}/edit" class="btn btn-default">Edit</a>
