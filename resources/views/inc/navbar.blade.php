@@ -1,9 +1,11 @@
 
-<nav class="navbar navbar-expand-md navbar navbar-light  navbar-laravel">
+<nav class="navbar navbar-expand-lg navbar-light static-top" style="background-color:white">
         <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
-            </a>
+          
+<a class="navbar-brand" href="{{ url('/') }}">
+                    <img src="/storage/logo100x.png" alt="" 
+             >
+                  </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -18,6 +20,9 @@
                 <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
                     @guest
+                    <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/') }}">HOME</a>
+                        </li>
                     <li class="nav-item">
                             <a class="nav-link" href="/motorhomes">MOTORHOMES</a>
                         </li>
@@ -34,6 +39,9 @@
                             </li>
                         @endif
                     @else
+                    <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/') }}">HOME</a>
+                        </li>
                     <li class="nav-item">
                             <a class="nav-link" href="/motorhomes">MOTORHOMES</a>
                         </li>

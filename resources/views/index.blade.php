@@ -1,32 +1,25 @@
 @extends('layouts.app')
 @section('content')
 @if(count($motorhomes) >= 1)
-@foreach ($motorhomes as $key => $motorhome)
-@if($key%3 ==0|| $key == 0)
-
 <div class="card-deck" style="margin-top: 5em">
-@endif
-
+@foreach ($motorhomes as $key => $motorhome)
         <div class="card" style="border-radius: 17px; border: solid 1px black">
           <img class="card-img-top" src="storage/cover_images/{{$motorhome->cover_image}}" alt="Card image cap">
           <div class="card-body">
             <h5 class="card-title">{{$motorhome->model->name}}</h5>
-            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            <p class="card-text">{{$motorhome->description}}</p>
+            <a href="/motorhomes/{{$motorhome->id}}"><button type="button" class="btn btn-outline-dark">VIEW</button></a><br><br>
           </div>
         </div>
-    
-        @if($key % 3== 0)
-      </div>
-@endif
-
  @endforeach
+      </div>
  @endif
 
  <div class="jumbotron jumbotron-fluid" style=" margin-top: 20px; background-color: white; border-radius: 17px; border: solid 1px black">
     <div class="container">
       <h1 class="display-4">Fluid jumbotron</h1>
       <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+     
     </div>
   </div>
   <div class="card" style="border-radius: 17px; border: solid 1px black">
