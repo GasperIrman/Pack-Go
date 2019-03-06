@@ -7,7 +7,14 @@
                     <h1>RV Models:</h1>
             </div>
             <div class="col-md-4 col-sm-4">
+                    @if(!Auth::guest())
+                    @if(Auth::user()->admin == 1)
                     <a href="/rvmodels/create" class="btn btn-primary">Add a RV model</a>
+                    @else
+
+                    @endif
+                    @endif
+                    
         </div>
     </div>
     

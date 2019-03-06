@@ -18,6 +18,13 @@
     
 
     <!-- Styles -->
+    <style>
+        #map {
+  height: 500px;  /* The height is 400 pixels */
+  width: 100%;  /* The width is the width of the web page */
+  background-color: grey;
+ }
+        </style>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script
   src="https://code.jquery.com/jquery-3.3.1.js"

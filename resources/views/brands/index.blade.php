@@ -7,7 +7,14 @@
                     <h1>Brands</h1>
             </div>
             <div class="col-md-4 col-sm-4">
+                    @if(!Auth::guest())
+                    @if(Auth::user()->admin == 1)
                     <a href="/brands/create" class="btn btn-primary">Add a Brand</a>
+                    @else
+
+                    @endif
+                    @endif
+                 
         </div>
     </div>
     

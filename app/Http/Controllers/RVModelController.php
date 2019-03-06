@@ -26,9 +26,16 @@ class RVModelController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
+    
     {
+        
+           
         $items = Brand::pluck('name', 'id');
-        return view('rvmodels.create')->with('items', $items );
+        if(auth()->user()->admin == 1)  {
+            return view('rvmodels.create')->with('items', $items );
+        }
+        return redirect('/ ')->with('error', 'Unautharize page' );
+       
    
     }
 
@@ -80,7 +87,15 @@ class RVModelController extends Controller
     public function edit($id)
     {
         $rvmodel = RVModel::find($id);
-        return view('rvmodels.edit')->with('rvmodel', $rvmodel );
+
+        if(auth()->user()->admin == 1)  {
+            return view('rvmodels.edit')->with('rvmodel', $rvmodel );
+        }
+        return redirect('/ ')->with('error', 'Unautharize page' );
+       
+   
+    
+        
    
     }
 
@@ -117,7 +132,15 @@ class RVModelController extends Controller
     public function destroy($id)
     {
         $rvmodel = RVModel::find($id);
+        if(auth()->user()->admin == 1)  {
+           
         $rvmodel ->  delete();
         return redirect('/rvmodels')->with('success','RV Deleted ');
+        
+        }
+        return redirect('/ ')->with('error', 'Unautharize page' );
+       
+   
+    
  }
 }

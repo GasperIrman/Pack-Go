@@ -14,6 +14,11 @@ class MotorhomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth',['except'=>['index','show']]);
+    }
     public function index()
     {
         $motorhomes = Motorhome::orderBy('id','desc')->paginate(10);
@@ -103,11 +108,11 @@ $path = $request->file('cover_image')->storeAs('public/cover_images/',$fileNameT
     {
         $motorhome = Motorhome::find($id);
         //check for correct user
-        if(auth()->user()->id !== $motorhome->user_id ){
-            return redirect('/motorhomes ')->with('error', 'Unautharize page' );
-        }
-        
+        if(auth()->user()->id == $motorhome->user_id || auth()->user()->admin == 1)  {
             return view('motorhomes.edit')->with('motorhome', $motorhome );
+        }
+        return redirect('/motorhomes ')->with('error', 'Unautharize page' );
+           
     }
 
     /**
@@ -161,11 +166,12 @@ $path = $request->file('cover_image')->storeAs('public/cover_images/',$fileNameT
     public function destroy($id)
     {
         $motorhome = Motorhome::find($id);
-        if(auth()->user()->id !== $motorhome->user_id ){
-            return redirect('/motorhomes ')->with('error', 'Unautharize page' );
+        if(auth()->user()->id == $motorhome->user_id || auth()->user()->admin == 1){
+            $motorhome ->  delete();
+            return redirect('/motorhomes')->with('success','Motorhome Deleted ');
+          
         }
-        
-        $motorhome ->  delete();
-        return redirect('/motorhomes')->with('success','Motorhome Deleted ');
+        return redirect('/motorhomes ')->with('error', 'Unautharize page' );
+       
     }
 }

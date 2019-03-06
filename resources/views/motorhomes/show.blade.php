@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <a href="/motorhomes" class="btn btn-default">Go back</a>
+    <a href="/motorhomes" class="btn btn-default"><button type="button" class="btn btn-outline-dark" >GO BACK</button></a>
     <br>
     <h1>{{$motorhome->model->name}}</h1>
     <br>
