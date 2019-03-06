@@ -22,7 +22,7 @@ class RentController extends Controller
     
     public function index()
     {
-        $rents = Rent::orderBy('rent_start','asc')->get();
+        $rents = Rent::orderBy('rent_start','asc')->paginate(15); 
         return view('rents.index')->with('rents',$rents);
     }
 
