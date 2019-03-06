@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\RVModel;
+use App\Brand;
+use App\Country;
 use Illuminate\Http\Request;
 
 class RVModelController extends Controller
@@ -14,7 +16,8 @@ class RVModelController extends Controller
      */
     public function index()
     {
-        //
+        $rvmodels = RVModel::orderBy('id','desc')->paginate(10);
+        return view('rvmodels.index')->with('rvmodels',$rvmodels);
     }
 
     /**
@@ -24,7 +27,9 @@ class RVModelController extends Controller
      */
     public function create()
     {
-        //
+        $items = Brand::pluck('name', 'id');
+        return view('rvmodels.create')->with('items', $items );
+   
     }
 
     /**
@@ -35,7 +40,22 @@ class RVModelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'horse_power' => 'required',
+
+            'brand_id' => 'required',
+           
+        ]);
+
+    $rvmodel = new RVModel;
+    $rvmodel->name = $request->input('name')  ;
+    $rvmodel->brand_id= $request->input('brand_id');
+    $rvmodel->year = $request->input('year')  ;
+    $rvmodel->horse_power = $request->input('horse_power')  ;
+    $rvmodel->save();
+    return redirect('/rvmodels')->with('success','RV Added');
+   
     }
 
     /**
@@ -44,9 +64,11 @@ class RVModelController extends Controller
      * @param  \App\RVModel  $rVModel
      * @return \Illuminate\Http\Response
      */
-    public function show(RVModel $rVModel)
+    public function show($id)
     {
-        //
+        $rvmodel = RVModel::find($id);
+        return view('rvmodels.show')->with('rvmodel', $rvmodel );
+    
     }
 
     /**
@@ -55,9 +77,11 @@ class RVModelController extends Controller
      * @param  \App\RVModel  $rVModel
      * @return \Illuminate\Http\Response
      */
-    public function edit(RVModel $rVModel)
+    public function edit($id)
     {
-        //
+        $rvmodel = RVModel::find($id);
+        return view('rvmodels.edit')->with('rvmodel', $rvmodel );
+   
     }
 
     /**
@@ -67,9 +91,21 @@ class RVModelController extends Controller
      * @param  \App\RVModel  $rVModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RVModel $rVModel)
+    public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'horse_power' => 'required',
+   
+           
+            ]);
+            $rvmodel = RVModel::find($id);
+            $rvmodel->name = $request->input('name')  ;
+            $rvmodel->horse_power = $request->input('horse_power')  ;
+            $rvmodel->year = $request->input('year')  ;
+            $rvmodel->save();
+        return redirect('/rvmodels')->with('success','RV Updated');
+       
     }
 
     /**
@@ -78,8 +114,10 @@ class RVModelController extends Controller
      * @param  \App\RVModel  $rVModel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RVModel $rVModel)
+    public function destroy($id)
     {
-        //
-    }
+        $rvmodel = RVModel::find($id);
+        $rvmodel ->  delete();
+        return redirect('/rvmodels')->with('success','RV Deleted ');
+ }
 }

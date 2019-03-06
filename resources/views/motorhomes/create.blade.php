@@ -18,7 +18,7 @@
             </div> 
             <div class="form-group">
         {{Form::label('model','Model')}}
-           {{Form::select('model', $items, null ,['class'=>'form-control','placeholder'=>'Name'])}}
+           {{Form::select('model', $items, null ,['class'=>'form-control'])}}
 
         </div> 
         <div class="form-group">

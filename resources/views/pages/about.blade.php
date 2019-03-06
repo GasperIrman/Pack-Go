@@ -48,47 +48,19 @@
         </a>
       </div>
   
-  
-      <!-- Marketing messaging and featurettes
-      ================================================== -->
-      <!-- Wrap the rest of the page in another container to center all the content. -->
-  
-      <div class="container marketing">
-  
-        <!-- Three columns of text below the carousel -->
-        <div class="row">
-          <div class="col-lg-4">
-            <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
-            <h2>Heading</h2>
-            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-          </div><!-- /.col-lg-4 -->
-          <div class="col-lg-4">
-            <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
-            <h2>Heading</h2>
-            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-          </div><!-- /.col-lg-4 -->
-          <div class="col-lg-4">
-            <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
-            <h2>Heading</h2>
-            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-          </div><!-- /.col-lg-4 -->
-        </div><!-- /.row -->
+
   
   
         <!-- START THE FEATURETTES -->
-  
-        <hr class="featurette-divider">
+
   
         <div class="row featurette">
           <div class="col-md-7">
-            <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
+            <h2 class="featurette-heading">Do you have RV? <span class="text-muted">Why not make some money?</span></h2>
             <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
           </div>
           <div class="col-md-5">
-            <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+            <img class="featurette-image img-fluid mx-auto"  style="width:120px" src="/storage/money.png" alt="Make some money">
           </div>
         </div>
   
@@ -96,11 +68,11 @@
   
         <div class="row featurette">
           <div class="col-md-7 push-md-5">
-            <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
+            <h2 class="featurette-heading">Do you want to rent RV? <span class="text-muted">Do it now.</span></h2>
             <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
           </div>
           <div class="col-md-5 pull-md-7">
-            <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+            <img class="featurette-image img-fluid mx-auto"  style="width:120px" src="/storage/camper.png" alt="Camper">
           </div>
         </div>
   
@@ -108,13 +80,75 @@
   
         <div class="row featurette">
           <div class="col-md-7">
-            <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+            <h2 class="featurette-heading">Do you want to try it? <span class="text-muted">It's free. Do it!</span></h2>
             <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
           </div>
           <div class="col-md-5">
-            <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+            <img class="featurette-image img-fluid mx-auto" style="width:120px"src="/storage/about-us.png" alt="Try it">
           </div>
         </div>
   
         <hr class="featurette-divider">
+
+
+
+      <div class="container marketing">
+  
+          <!-- Three columns of text below the carousel -->
+          <h2> STAFF:</h2>
+          <div class="row">
+            <div class="col-lg-6">
+              <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+              <h2>Gašper Irman</h2>
+              <p>Lots of experiance in PHP, JS and C# coding. Co-author of application and idea of Pack&Go</p>
+              <ul>
+                  <li>Mail: gasper.irman.gg@gmail.com</li>
+                  <li>Website: www.example.com</li>
+                  <li>Phone: 000 000 000 </li>
+                </ul>
+             
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-6">
+              <img class="rounded-circle" src="/storage/vgPortrait.jpg" alt="Valentin Grudnik" width="140" height="140">
+              <h2>Valentin Grudnik</h2>
+              <p>Lots of experiance in PHP, CSS, design and photography. Co-author of application and idea of Pack&Go</p>
+              <ul>
+                  <li>Mail: grudnik.fotografija@gmail.com</li>
+                  <li>Website: www.fotografija-grudnik.com</li>
+                  <li>Phone: 041 675 682 </li>
+                </ul>
+            </div><!-- /.col-lg-4 -->
+          </div><!-- /.row -->
+
+          <hr class="featurette-divider">
+          <div class="row featurette">
+              <h2 class="featurette-heading">Do you want to know more about us? <span class="text-muted">Feel free to contact us!</span></h2>
+             
+            <div class="col-md-6">
+               <ul style="list-style-type:none;">
+                  <li>Mail: info@packngo.com</li>
+                  <li>Phone: 123 456 789</li>
+                  <li>Address: Šmiklavž 3a, 3342 Gornji Grad, Slovenia</li>
+                </ul>  
+                
+                </div>
+               
+
+                <div id="map"></div>
+                    <script>
+                // Initialize and add the map
+                function initMap() {
+                  // The location of Uluru
+                  var uluru = {lat: 46.2740599, lng: 14.7541159};
+                  // The map, centered at Uluru
+                  var map = new google.maps.Map(
+                      document.getElementById('map'), {zoom: 12, center: uluru});
+                  // The marker, positioned at Uluru
+                  var marker = new google.maps.Marker({position: uluru, map: map});
+                }
+                    </script>
+                    <script async defer
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAG2O5s4ztTjyYNDBrQqpBlDTmW38qx-Ac&callback=initMap">
+                    </script>
+         
 @endsection

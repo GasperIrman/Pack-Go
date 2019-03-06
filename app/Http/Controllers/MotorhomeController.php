@@ -117,7 +117,7 @@ $path = $request->file('cover_image')->storeAs('public/cover_images/',$fileNameT
      * @param  \App\Motorhome  $motorhome
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Motorhome $motorhome)
+    public function update(Request $request,$id)
     {
         $this->validate($request, [
             'description' => 'required',
