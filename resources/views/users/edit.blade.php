@@ -4,15 +4,30 @@
 <div class="container">
     {!! Form::open(['method' => 'POST', 'action' => ['UserController@update', $user->id]]) !!}
     {{ Form::hidden('_method', 'PUT')}}
-    {{ Form::label('Name') }}
-    {{ Form::text('name', $user->name) }}<br>
-    {{ Form::button('Change Password', ['id' => 'PwrdBtn']) }}
-    {{ Form::text('password', $user->password, ['style' => 'visibility: hidden', 'id' => 'asd']) }}<br>
-    {{ Form::label('Profile picture') }}
-    {{ Form::file('image') }}<br>
-    {{ Form::label('Address') }}
-    {{ Form::text('address', $user->email) }}<br>
-    {{ Form::submit('Update', ['class' => 'btn btn-primary'])}}
+    <div class="form-group">
+        {{ Form::label('Name') }}
+        {{ Form::text('name', $user->name) }}
+    </div>
+    <div class="form-group">
+        {{ Form::button('Change Password', ['id' => 'PwrdBtn', 'class' => 'btn btn-secondary']) }}
+        {{ Form::text('password', $user->password, ['style' => 'visibility: hidden', 'id' => 'asd']) }}
+    </div>
+    <div class="form-group">
+        {{ Form::label('Profile picture') }}
+        <!-- za file upload gumb nimam pojma kk se spremeni tk da to je treba se pogruntat -->
+        {{ Form::file('image') }}
+    </div>
+    <div class="form-group">
+        {{ Form::label('Address') }}
+        {{ Form::text('address', $user->email) }}
+    </div>
+    <div class="form-group">
+        {{ Form::label('Provider?') }}
+        {{ Form::checkbox('provider', 'true', $user->provider) }}
+    </div>
+    <div class="form-group">
+        {{ Form::submit('Update', ['class' => 'btn btn-primary'])}}
+    </div>
     {!! Form::close() !!}
 </div>
 <script>
