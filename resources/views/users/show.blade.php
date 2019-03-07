@@ -1,9 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-Ttmu kurcu je ime {{$user->name}}<br>
-Tt kurac ma takle mail {{$user->email}}<br>
-profilka {{$user->pic_url}}<br>
+<div class="container" style="width: 30%; float: left">
+	Name:  {{$user->name}}<br>
+	Email address: {{$user->email}}<br>
+	Profile picture:  {{$user->pic_url}}<br>
+</div>
+@if(Auth::user()->admin)
+	<a href="/users/{{$user->id}}/edit" class="float-right btn btn-primary">Edit profile</a>
+@endif
 @if($user->provider)
 	@foreach($user->motorhome->sortByDesc('created_at') as $rv)
 	<div class="jumbotron jumbotron-fluid" style="overflow: hidden">
