@@ -81,6 +81,7 @@ class UserController extends Controller
         $user = User::find($id);
         $user->name = $request->input('name');
         $user->email = $request->input('address');
+        $user->provider = ($request->input('provider') == 'true') ? true : false;
         $user->update();
         return redirect()->back();
     }
