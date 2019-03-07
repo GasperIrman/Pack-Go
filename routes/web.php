@@ -34,3 +34,5 @@ Auth::routes(['verify' => true]);
 
 //za rent da dobis motorhome id
 Route::get('/rents/create/{id}', 'RentController@create');
+
+Route::post('/search', 'MotorhomeController@search');

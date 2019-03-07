@@ -53,21 +53,21 @@ class MotorhomeController extends Controller
         ]);
         if($request->hasFile('cover_image')){
             //Handle File Upload
-if($request->hasFile('cover_image')){
-//Get filename with the extension
-$filenamewithExt = $request->file('cover_image')->getClientOriginalName();
+            if($request->hasFile('cover_image')){
+            //Get filename with the extension
+            $filenamewithExt = $request->file('cover_image')->getClientOriginalName();
 
-//Get just filename
-$filename = pathinfo($filenamewithExt,PATHINFO_FILENAME);
+            //Get just filename
+            $filename = pathinfo($filenamewithExt,PATHINFO_FILENAME);
 
-//Get just ext
-$extension = $request->file('cover_image')->guessClientExtension();
+            //Get just ext
+            $extension = $request->file('cover_image')->guessClientExtension();
 
-//FileName to store
-$fileNameToStore = time().'.'.$extension;
+            //FileName to store
+            $fileNameToStore = time().'.'.$extension;
 
-//Upload Image
-$path = $request->file('cover_image')->storeAs('public/cover_images/',$fileNameToStore);
+            //Upload Image
+            $path = $request->file('cover_image')->storeAs('public/cover_images/',$fileNameToStore);
     }
     else{
         $fileNameToStore='noimage.jpg';
@@ -132,18 +132,18 @@ $path = $request->file('cover_image')->storeAs('public/cover_images/',$fileNameT
         ]);
           
             //Handle File Upload
-if($request->hasFile('cover_image')){
-//Get filename with the extension
-$filenamewithExt = $request->file('cover_image')->getClientOriginalName();
-//Get just filename
-$filename = pathinfo($filenamewithExt,PATHINFO_FILENAME);
-//Get just ext
-$extension = $request->file('cover_image')->guessClientExtension();
-//FileName to store
-$fileNameToStore = time().'.'.$extension;
-//Upload Image
-$path = $request->file('cover_image')->storeAs('public/cover_images/',$fileNameToStore);
-    }
+            if($request->hasFile('cover_image')){
+            //Get filename with the extension
+            $filenamewithExt = $request->file('cover_image')->getClientOriginalName();
+            //Get just filename
+            $filename = pathinfo($filenamewithExt,PATHINFO_FILENAME);
+            //Get just ext
+            $extension = $request->file('cover_image')->guessClientExtension();
+            //FileName to store
+            $fileNameToStore = time().'.'.$extension;
+            //Upload Image
+            $path = $request->file('cover_image')->storeAs('public/cover_images/',$fileNameToStore);
+                }
      
 
               $motorhome = Motorhome::find($id);
@@ -173,5 +173,18 @@ $path = $request->file('cover_image')->storeAs('public/cover_images/',$fileNameT
         }
         return redirect('/motorhomes ')->with('error', 'Unautharize page' );
        
+    }
+
+    public function search(Request $rq)
+    {
+        $this ->validate($rq, [
+                'search' => 'required',
+        ]);
+        $query = $rq->input('search');
+        //HOLY SHIT TOLE PROU DELA
+        //TIST ORWHEREIN SM SI KR SAM ZMISLU PA DELA xD
+        $models = RVModel::where('name', 'LIKE', '%'.$query.'%')->get();
+        $return = Motorhome::where('description', 'LIKE', '%'.$query.'%')->orWhereIn('id', $models)->get();
+        return view('motorhomes.search')->with('motorhomes', $return);
     }
 }
