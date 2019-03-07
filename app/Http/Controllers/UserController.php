@@ -77,8 +77,30 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'address' => 'required',
+            'profile_picture' => 'image|nullable|max:1999'
         ]);
         $user = User::find($id);
+
+        if($request->hasFile('profile_picture')){
+            //Get filename with extenstion
+            $filenameWithExt = $request->file('profile_picture')->getClientOriginalName();
+            //Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            //Get just extension
+            $ext = $request->file('profile_picture')->getClientOriginalExtension();
+            //Filename to store
+            $fileNameToStore = $filename.'_'.time().'.'.$ext;
+            //Upload
+            $path = $request->file('profile_picture')->storeAs('public/profile_pictures', $fileNameToStore);
+        }
+        else{
+            $fileNameToStore = 'wat zka ni slike';
+        }
+        if($request->hasFile('profile_picture'))
+        {
+            $user->pic_url = $fileNameToStore;
+        }
+        
         $user->name = $request->input('name');
         $user->email = $request->input('address');
         $user->provider = ($request->input('provider') == 'true') ? true : false;

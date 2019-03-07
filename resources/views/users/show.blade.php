@@ -1,14 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container" style="width: 30%; float: left">
+<div class="container">
+	<div class="container">
+	    <div class="form-group">
+	        <img src="/storage/profile_pictures/{{$user->pic_url}}" style="width: 7vw">
+	        @if(Auth::user()->admin)
+				<a href="/users/{{$user->id}}/edit" class="float-right btn btn-primary">Edit profile</a>
+			@endif
+	    </div>
+	</div>
 	Name:  {{$user->name}}<br>
 	Email address: {{$user->email}}<br>
 	Profile picture:  {{$user->pic_url}}<br>
 </div>
-@if(Auth::user()->admin)
-	<a href="/users/{{$user->id}}/edit" class="float-right btn btn-primary">Edit profile</a>
-@endif
+
 @if($user->provider)
 	@foreach($user->motorhome->sortByDesc('created_at') as $rv)
 	<div class="jumbotron jumbotron-fluid" style="overflow: hidden">

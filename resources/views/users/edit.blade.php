@@ -2,7 +2,12 @@
 
 @section('content')
 <div class="container">
-    {!! Form::open(['method' => 'POST', 'action' => ['UserController@update', $user->id]]) !!}
+    <div class="form-group">
+        <img src="/storage/profile_pictures/{{$user->pic_url}}" style="width: 7vw">
+    </div>
+</div>
+<div class="container">
+    {!! Form::open(['method' => 'POST', 'action' => ['UserController@update', $user->id], 'enctype' => 'multipart/form-data']) !!}
     {{ Form::hidden('_method', 'PUT')}}
     <div class="form-group">
         {{ Form::label('Name') }}
@@ -15,7 +20,7 @@
     <div class="form-group">
         {{ Form::label('Profile picture') }}
         <!-- za file upload gumb nimam pojma kk se spremeni tk da to je treba se pogruntat -->
-        {{ Form::file('image') }}
+        {{ Form::file('profile_picture') }}
     </div>
     <div class="form-group">
         {{ Form::label('Address') }}
