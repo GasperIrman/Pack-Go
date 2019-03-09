@@ -3,7 +3,7 @@
 @if(count($motorhomes) >= 1)
 <div class="card-deck" style="margin-top: 5em">
 @foreach ($motorhomes as $key => $motorhome)
-        <div class="card" style="border-radius: 17px; border: solid 1px black">
+        <div class="card" style="border-radius: 17px; border: solid 1px black;overflow:hidden">
           <img class="card-img-top" src="storage/cover_images/{{$motorhome->cover_image}}" alt="Card image cap">
           <div class="card-body">
             <h5 class="card-title">{{$motorhome->model->name}}</h5>

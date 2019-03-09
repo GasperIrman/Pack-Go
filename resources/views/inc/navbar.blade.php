@@ -64,7 +64,7 @@
                             @endif
                         <li class="nav-item">
                             {{ Form::open(['action' => 'MotorhomeController@search', 'method' => 'POST'] )}}
-                            {{ Form::text('search', '', ['placeholder' => 'search']) }}
+                            {{ Form::text('search', '', ['placeholder' => 'search', 'style'=>'border-radius: 17px; border: solid 1px black; ']) }}
                             {{ Form::close() }}
                         </li>
                         <li class="nav-item dropdown">
