@@ -14,6 +14,7 @@ class MotorhomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+        
 
     public function __construct()
     {
@@ -130,7 +131,7 @@ class MotorhomeController extends Controller
             'beds' => 'required',
            
         ]);
-          
+          if(Auth::user()->admin || Auth::user()->id == Motorhome::find($id)->user_id)
             //Handle File Upload
             if($request->hasFile('cover_image')){
             //Get filename with the extension
