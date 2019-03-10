@@ -55,10 +55,13 @@
                                        <a class="nav-link" href="/rvmodels">MODELS</a>
                                    </li>
                                    <li class="nav-item">
-                                           <a class="nav-link" href="/brands">BRADNS</a>
+                                           <a class="nav-link" href="/brands">BRANDS</a>
                                        </li>
                                        <li class="nav-item">
                                             <a class="nav-link" href="/rents">RENTS</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/users">USERS</a>
                                         </li>
                                 @endif
                             @endif

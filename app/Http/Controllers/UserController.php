@@ -14,9 +14,15 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        //
+        $users = User::all();
+        return view('users.index')->with('users', $users);
     }
 
     /**
@@ -116,7 +122,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        $user->delete();
+        return redirect()->back()->with('success', 'User deleted successfully!');
     }
 
     public function passCheck(Request $rq)
