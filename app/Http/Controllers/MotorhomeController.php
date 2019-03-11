@@ -188,4 +188,12 @@ class MotorhomeController extends Controller
         $return = Motorhome::where('description', 'LIKE', '%'.$query.'%')->orWhereIn('id', $models)->get();
         return view('motorhomes.search')->with('motorhomes', $return);
     }
+
+    public function filter(Request $rq)
+    {
+        $query = $rq->input('search');
+        $models = RVModel::where('name', 'LIKE', '%'.$query.'%')->get();
+        $motorhomes = Motorhome::where('description', 'LIKE', '%'.$query.'%')->orWhereIn('id', $models)->get();
+        return view('motorhomes.search')->with('motorhomes', $motorhomes);
+    }
 }

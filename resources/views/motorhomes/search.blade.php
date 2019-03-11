@@ -1,11 +1,36 @@
 @extends('layouts.app')
 <!-- tle se nek filter navbar ko se expanda -->
 @section('content')
-<div class="" style="background-color: #a0a0a0; margin-top: -25px; padding: 15px; display: inline-flex">
+<div class="" id="parentFilter" style="background-color: #a0a0a0; margin-top: -25px; padding: 15px; width: auto; height: 10vh; overflow: hidden">
   <!-- ko bos gor kliknu se bo filter bar expandu cez sirino ekrana pa mal se navzdol pa bos meu opcije za filtre -->
-<button onclick="" class="btn">
+<button id="filter" class="btn">
   Filter
 </button>
+<br><br>
+{{ Form::open(['action' => 'MotorhomeController@filter']) }}
+    {{ Form::label('Model / Description') }}
+    {{ Form::text('search', '', ['placeholder' => 'Search']) }}
+
+    {{ Form::label('Country') }}
+    {{ Form::text('cntry', '', ['placeholder' => 'Search']) }}
+
+    {{ Form::label('City') }}
+    {{ Form::text('srch', '', ['placeholder' => 'Search']) }}
+
+    {{ Form::label('Bed number') }}
+    {{ Form::text('srch', '', ['placeholder' => 'Search']) }}<br><br>
+
+    {{ Form::label('Price') }}
+    {{ Form::range('srch', '', ['placeholder' => 'Search']) }}
+
+    {{ Form::label('Rating') }}
+    {{ Form::range('range', '', ['placeholder' => 'Search']) }}
+
+    {{ Form::label('Year') }}
+    {{ Form::text('srch', '', ['placeholder' => 'Search']) }}
+
+    {{ Form::submit('Search', ['class' => 'btn btn-primary']) }}
+  {{ Form::close() }}
 </div>
 <br>
  <div class="row">
@@ -14,7 +39,7 @@
             </div>
     </div>
     
-    @if(count($motorhomes) >= 1)
+    @if(count($motorhomes) > 0)
         @foreach ($motorhomes as $motorhome)
         <div class="jumbotron jumbotron-fluid" style=" margin-top: 20px; background-color: white; border-radius: 17px; border: solid 1px black">
                 <div class="container">
@@ -48,4 +73,24 @@
     @else
         <p>No motorhomes found</p>
     @endif
+
+<script>
+  var expanded = false;
+  var btn = $('#filter');
+  var parent = $('#parentFilter');
+
+  $('#filter').on('click', function(event){
+    if(!expanded)
+    {
+      expanded = true;
+      parent.animate({width: '100%', height: '30vh'}, 250);
+      //$('#parentFilter div').html('<b>Search: </b><form><input type="text" name="lmao"</form>');
+    }     
+    else
+    {
+      expanded = false;
+      parent.animate({width: 'auto', height: '10vh'}, 250);
+    }
+  });
+</script>
 @endsection

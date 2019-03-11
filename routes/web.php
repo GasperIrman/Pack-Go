@@ -36,3 +36,4 @@ Auth::routes(['verify' => true]);
 Route::get('/rents/create/{id}', 'RentController@create');
 
 Route::post('/search', 'MotorhomeController@search');
+Route::post('/filter', 'MotorhomeController@filter');
