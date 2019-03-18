@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Motorhome;
 use App\Brand;
 use App\RVModel;
+use App\Country;
+use App\City;
 use Illuminate\Http\Request;
 
 class MotorhomeController extends Controller
@@ -182,18 +184,46 @@ class MotorhomeController extends Controller
                 'search' => 'required',
         ]);
         $query = $rq->input('search');
-        //HOLY SHIT TOLE PROU DELA
-        //TIST ORWHEREIN SM SI KR SAM ZMISLU PA DELA xD
-        $models = RVModel::where('name', 'LIKE', '%'.$query.'%')->get();
-        $return = Motorhome::where('description', 'LIKE', '%'.$query.'%')->orWhereIn('id', $models)->get();
+        $models = RVModel::where('name', 'LIKE', '%'.$query.'%')->pluck('id');
+        //return $models;
+        $return = Motorhome::where('description', 'LIKE', '%'.$query.'%')->orWhereIn('model_id', $models)->get();
         return view('motorhomes.search')->with('motorhomes', $return);
     }
 
     public function filter(Request $rq)
     {
-        $query = $rq->input('search');
-        $models = RVModel::where('name', 'LIKE', '%'.$query.'%')->get();
-        $motorhomes = Motorhome::where('description', 'LIKE', '%'.$query.'%')->orWhereIn('id', $models)->get();
-        return view('motorhomes.search')->with('motorhomes', $motorhomes);
+        $motorhomes = new Motorhome();
+        $motorhomes = $motorhomes->newQuery();
+        // = Motorhome::where('description', 'LIKE', '%'.$query.'%')->orWhereIn('model_id', $models)->get();
+        if($rq->input('search') != ''){
+            //$models = RVModel::where('name', 'LIKE', '%'.$rq->input('search').'%')->pluck('id');
+            //$motorhomes->where('description', 'LIKE', '%'.$rq->input('search').'%')->orWhereIn('model_id', $models);
+            $motorhomes->where('description', 'LIKE', '%'.$rq->input('search').'%')->join('r_v_models', 'r_v_models.id', 'model_id')->orWhere('r_v_models.name', 'LIKE', '%'.$rq->input('search').'%');
+        }
+        if($rq->input('cntry') != ''){
+            $motorhomes->join('r_v_models', 'r_v_models.id', 'model_id')->join('brands', 'brands.id', 'r_v_models.brand_id')->join('countries', 'countries.id', 'brands.country_id')->where('countries.name', 'LIKE', '%'.$rq->input('cntry').'%');
+        }
+        if($rq->input('city') != ''){
+            //$motorhomes->where('d', $rq->input('search'));
+        }
+        if($rq->input('beds') != ''){
+            //$motorhomes->where('beds', $rq->input('beds'));
+        }
+        if($rq->input('price') != ''){
+            //$motorhomes->where('price', $rq->input('search'));
+        }
+        if($rq->input('rating') != ''){
+            //$motorhomes->where('ds', $rq->input('search'));
+        }
+        if($rq->input('year') != ''){
+            //$motorhomes->where('dsa', $rq->input('search'));
+        }
+
+
+        //$countries = Country::where('name', 'LIKE', '%'.$rq->input('cntry').'%')->get();
+        //$cities = City::where('name', 'LIKE', '%'.$rq->input('city').'%')->get();
+        //$models = RVModel::where('name', 'LIKE', '%'.$query.'%')->pluck('id');
+        //return $motorhomes->get();
+        return view('motorhomes.search')->with('motorhomes', $motorhomes->get());
     }
 }

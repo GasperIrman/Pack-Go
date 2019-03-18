@@ -1,7 +1,7 @@
 @extends('layouts.app')
 <!-- tle se nek filter navbar ko se expanda -->
 @section('content')
-<div class="" id="parentFilter" style="background-color: #a0a0a0; margin-top: -25px; padding: 15px; width: auto; height: 10vh; overflow: hidden">
+<div class="" id="parentFilter" style="background-color: #a0a0a0; margin-top: -25px; padding: 15px; width: auto; height: 10vh; overflow: hidden;border-radius: 15px">
   <!-- ko bos gor kliknu se bo filter bar expandu cez sirino ekrana pa mal se navzdol pa bos meu opcije za filtre -->
 <button id="filter" class="btn">
   Filter
@@ -15,19 +15,19 @@
     {{ Form::text('cntry', '', ['placeholder' => 'Search']) }}
 
     {{ Form::label('City') }}
-    {{ Form::text('srch', '', ['placeholder' => 'Search']) }}
+    {{ Form::text('city', '', ['placeholder' => 'Search']) }}
 
     {{ Form::label('Bed number') }}
-    {{ Form::text('srch', '', ['placeholder' => 'Search']) }}<br><br>
+    {{ Form::text('beds', '', ['placeholder' => 'Search']) }}<br><br>
 
     {{ Form::label('Price') }}
-    {{ Form::range('srch', '', ['placeholder' => 'Search']) }}
+    {{ Form::text('price', '', ['id' => 'ex2', 'placeholder' => 'Search', 'class' => 'span2', 'data-slider-min' => '10', 'data-slider-max' => '100', 'data-slider-step' => '1', 'data-slider-value'=>'[250,450]']) }}
 
     {{ Form::label('Rating') }}
-    {{ Form::range('range', '', ['placeholder' => 'Search']) }}
+    {{ Form::text('rating', '', ['placeholder' => 'Search']) }}
 
     {{ Form::label('Year') }}
-    {{ Form::text('srch', '', ['placeholder' => 'Search']) }}
+    {{ Form::text('year', '', ['placeholder' => 'Search']) }}
 
     {{ Form::submit('Search', ['class' => 'btn btn-primary']) }}
   {{ Form::close() }}
@@ -84,7 +84,6 @@
     {
       expanded = true;
       parent.animate({width: '100%', height: '30vh'}, 250);
-      //$('#parentFilter div').html('<b>Search: </b><form><input type="text" name="lmao"</form>');
     }     
     else
     {
