@@ -9,9 +9,9 @@
 <br><br>
 {{ Form::open(['action' => 'MotorhomeController@filter']) }}
     {{ Form::label('Model / Description') }}
-    <div style="width: 10px !important">
-      {{ Form::text('search', '', ['placeholder' => 'Search', 'onkeyup' => 'showResult(this.value)', 'style' => 'display: inline-block']) }}
-      <div id="live" style="z-index: 5;width: auto; height: 10px; position: relative; "></div>
+    <div style="display: inline">
+      {{ Form::text('search', '', ['placeholder' => 'Search', 'onkeyup' => 'showResult(this.value)', 'style' => 'display: inline-block; z-index: 10', 'autocomplete' => 'off']) }}
+      <div id="live" class="dropdown-content" style="width: 160px; position: absolute; left: 19.1vw; background-color: white; border-radius: 5px;"></div>
     </div>
     {{ Form::label('Country') }}
     {{ Form::text('cntry', '', ['placeholder' => 'Search']) }}
@@ -43,7 +43,7 @@
     
     @if(count($motorhomes) > 0)
         @foreach ($motorhomes as $motorhome)
-        <div class="jumbotron jumbotron-fluid" style=" margin-top: 20px; background-color: white; border-radius: 17px; border: solid 1px black">
+        <div class="jumbotron jumbotron-fluid" style=" margin-top: 20px; background-color: white; border-radius: 17px; border: solid 1px black;">
                 <div class="container">
                         <div class="well">
                                 <div class="row">
@@ -99,13 +99,16 @@
     if(value.length == 0)
     {
       $('#live').html('');
+      $('#live').css('border', '');
       return;
     }
     rq = new XMLHttpRequest();
     rq.onreadystatechange=function(){
       if(this.readyState == 4 && this.status == 200)
       {
-        $('#live').html('<select>' + this.responseText + '</select>');
+        //$('#live').html('<select style="width: 159px; z-index: 1; position: relative">' + this.responseText + '</select>');
+        $('#live').html('<a href="#"' + this.responseText + '</a>');
+        $('#live').css('border', 'solid black 1px');
         console.log(this.responseText);
       } 
     }
