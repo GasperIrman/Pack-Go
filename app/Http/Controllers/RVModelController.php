@@ -143,4 +143,15 @@ class RVModelController extends Controller
    
     
  }
+
+ public function live($query)
+ {
+    $models = RVModel::where('name', 'LIKE', '%'.$query.'%')->pluck('name');
+    $return = '';
+    foreach($models as $id => $model)
+    {
+        $return .= '<option id="'.$id.'">'.$model.'</option>';
+    }
+    return $return;
+ }
 }

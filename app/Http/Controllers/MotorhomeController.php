@@ -204,10 +204,10 @@ class MotorhomeController extends Controller
             $motorhomes->join('r_v_models', 'r_v_models.id', 'model_id')->join('brands', 'brands.id', 'r_v_models.brand_id')->join('countries', 'countries.id', 'brands.country_id')->where('countries.name', 'LIKE', '%'.$rq->input('cntry').'%');
         }
         if($rq->input('city') != ''){
-            //$motorhomes->where('d', $rq->input('search'));
+            $motorhomes->join('users', 'users.id', 'user_id')->join('cities', 'cities.id', 'users.city_id')->where('cities.name', 'LIKE', '%'.$rq->input('cntry').'%');
         }
         if($rq->input('beds') != ''){
-            //$motorhomes->where('beds', $rq->input('beds'));
+            $motorhomes->where('beds', $rq->input('beds'));
         }
         if($rq->input('price') != ''){
             //$motorhomes->where('price', $rq->input('search'));
@@ -216,7 +216,7 @@ class MotorhomeController extends Controller
             //$motorhomes->where('ds', $rq->input('search'));
         }
         if($rq->input('year') != ''){
-            //$motorhomes->where('dsa', $rq->input('search'));
+            $motorhomes->join('r_v_models', 'r_v_models.id', 'model_id')->where('r_v_models.year', $rq->input('year'));
         }
 
 

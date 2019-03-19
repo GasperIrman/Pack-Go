@@ -37,3 +37,6 @@ Route::get('/rents/create/{id}', 'RentController@create');
 
 Route::post('/search', 'MotorhomeController@search');
 Route::post('/filter', 'MotorhomeController@filter');
+
+//Live search
+Route::get('/live/{Query}', 'RVModelController@live');

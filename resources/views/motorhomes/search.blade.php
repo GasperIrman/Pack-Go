@@ -9,8 +9,10 @@
 <br><br>
 {{ Form::open(['action' => 'MotorhomeController@filter']) }}
     {{ Form::label('Model / Description') }}
-    {{ Form::text('search', '', ['placeholder' => 'Search']) }}
-
+    <div style="width: 10px !important">
+      {{ Form::text('search', '', ['placeholder' => 'Search', 'onkeyup' => 'showResult(this.value)', 'style' => 'display: inline-block']) }}
+      <div id="live" style="z-index: 5;width: auto; height: 10px; position: relative; "></div>
+    </div>
     {{ Form::label('Country') }}
     {{ Form::text('cntry', '', ['placeholder' => 'Search']) }}
 
@@ -27,7 +29,7 @@
     {{ Form::text('rating', '', ['placeholder' => 'Search']) }}
 
     {{ Form::label('Year') }}
-    {{ Form::text('year', '', ['placeholder' => 'Search']) }}
+    {{ Form::date('year', '', ['placeholder' => 'Search']) }}
 
     {{ Form::submit('Search', ['class' => 'btn btn-primary']) }}
   {{ Form::close() }}
@@ -91,5 +93,24 @@
       parent.animate({width: 'auto', height: '10vh'}, 250);
     }
   });
+
+  function showResult(value)
+  {
+    if(value.length == 0)
+    {
+      $('#live').html('');
+      return;
+    }
+    rq = new XMLHttpRequest();
+    rq.onreadystatechange=function(){
+      if(this.readyState == 4 && this.status == 200)
+      {
+        $('#live').html('<select>' + this.responseText + '</select>');
+        console.log(this.responseText);
+      } 
+    }
+  rq.open("GET","live/"+value,true);
+  rq.send();
+  }
 </script>
 @endsection
