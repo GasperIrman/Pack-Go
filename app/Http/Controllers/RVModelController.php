@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\RVModel;
 use App\Brand;
 use App\Country;
+use App\Rent;
 use Illuminate\Http\Request;
 
 class RVModelController extends Controller
@@ -132,9 +133,13 @@ class RVModelController extends Controller
     public function destroy($id)
     {
         $rvmodel = RVModel::find($id);
+        $rent = Rent::where('motorhome_id',$id);
+      
+      
         if(auth()->user()->admin == 1)  {
            
         $rvmodel ->  delete();
+        $rent ->  delete();
         return redirect('/rvmodels')->with('success','RV Deleted ');
         
         }

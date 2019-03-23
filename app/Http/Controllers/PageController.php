@@ -11,7 +11,7 @@ class PageController extends Controller
 {
     
     public function index(){
-      $motorhomes = Motorhome::orderBy('rating','desc')->limit(3)->get();
+      $motorhomes = Motorhome::orderBy('created_at','desc')->limit(3)->get();
 //$user = User::count();
         //$rent = Rent::count();
         

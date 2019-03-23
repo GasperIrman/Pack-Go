@@ -1,36 +1,33 @@
 @extends('layouts.app')
 
 @section('content')
-    <a href="/motorhomes" class="btn btn-default"><button type="button" class="btn btn-outline-dark" >GO BACK</button></a>
-    <br>
     <h1>{{$motorhome->model->name}}</h1>
     <br>
     <div class="well">
             <div class="row">
-           <div class="col-md-4 col-sm-4">
-  <img style="width:100%" src="/storage/cover_images/{{$motorhome->cover_image}}">
+           <div class="col-md-8 col-sm-8 ">
+  <img style="width:500px" src="/storage/cover_images/{{$motorhome->cover_image}}">
            </div>
-           <div class="col-md-8 col-sm-8">
+           <div class="col-md-4 col-sm-4">
 
-<h3>Description:</h3>
+
+<h3>Rv description:</h3>
 <p>{!!$motorhome->description!!}</p> 
 <br>
-<h3>Year:</h3>
-<p>{!!$motorhome->model->year!!}</p> 
+<h3>Letnik:</h3>
+<p>{!!date('Y', strtotime($motorhome->model->year))!!}</p> 
 <br>
 <h3>Model:</h3>
 <p>{!!$motorhome->model->name!!}</p> 
 <br>
-<h3>Brand:</h3>
+<h3>Znamka:</h3>
 <p>{!!$motorhome->model->brand->name!!}</p> 
-<h3>Beds:</h3>
-<p>{!!$motorhome->beds!!}</p> 
-<h3>Price:</h3>
-<p>{!!$motorhome->price!!} /Day</p> 
+<h3>Price per day:</h3>
+<p id="price">{!!$motorhome->price!!} EUR</p>
+<h4>LASTNIK : {{$motorhome->user->name}}</h4> 
 </div>
             </div>
-
-<small>Added by {{$motorhome->user->name}}</small> <br>
+</div>
 
 
 @if(!Auth::guest())
