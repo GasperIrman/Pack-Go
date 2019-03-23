@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Motorhome;
 use App\Brand;
 use App\RVModel;
+use App\MotorhomeReview;
 use Illuminate\Http\Request;
 
 class MotorhomeController extends Controller
@@ -22,6 +23,7 @@ class MotorhomeController extends Controller
     public function index()
     {
         $motorhomes = Motorhome::orderBy('id','desc')->get();
+        
         return view('motorhomes.index')->with('motorhomes',$motorhomes);
     }
 
@@ -95,7 +97,11 @@ $path = $request->file('cover_image')->storeAs('public/cover_images/',$fileNameT
     public function show($id)
     {
         $motorhome = Motorhome::find($id);
-        return view('motorhomes.show')->with('motorhome', $motorhome );
+        $motorhomereviews = Motorhomereview::where('motorhome_id',$id)->get();
+    $average = Motorhomereview::where('motorhome_id', $id)
+        ->groupBy('motorhome_id')
+        ->avg('rating');
+        return view('motorhomes.show')->with('motorhome', $motorhome )->with('motorhomereviews',$motorhomereviews)->with('average',$average);
     }
 
     /**
