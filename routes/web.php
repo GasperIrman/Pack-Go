@@ -26,6 +26,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
 Route::get('/', 'PageController@index' );
 Route::get('/about', 'PageController@about' );
 Route::post('/checkPassword', 'UserController@passCheck')->name('check');
@@ -39,3 +40,6 @@ Route::get('/rents/create/{id}', 'RentController@create');
 
 //za reviwe
 Route::get('/reviews/create/{id}', 'MotorhomeReviewController@create');
+
+
+Route::get('motorhomes/{id}', ['as' => 'motorhome.show', 'uses' => 'MotorhomeController@show']);

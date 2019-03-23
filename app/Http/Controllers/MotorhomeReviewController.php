@@ -33,8 +33,8 @@ class MotorhomeReviewController extends Controller
      */
     public function create($id)
     {  
-        $review = MotorhomeReview::find($id);
-        return view('reviews.create')->with('review', $review); //
+        $motorhome = Motorhome::find($id);
+        return view('reviews.create')->with('motorhome', $motorhome); //
     }
 
     /**
@@ -59,9 +59,7 @@ class MotorhomeReviewController extends Controller
         $review->description = $request->input('description') ;
         $review->rating = $request->input('rating') ;
         $review->save();
-        return redirect('/motorhomes/{{$motorhome}}')->with('success','Review posted');
-
-    }
+        return redirect()->route('motorhome.show', $motorhome);}
 
     /**
      * Display the specified resource.
@@ -101,13 +99,14 @@ class MotorhomeReviewController extends Controller
     {
      
        
-        
+        $motorhome = $request->input('motorhome_id') ;
         $review = MotorhomeReview::find($id);
         $review->headline = $request->input('headline') ;
         $review->description = $request->input('description') ;
         $review->rating = $request->input('rating') ;
         $review->save();
-        return redirect('/motorhomes/{{$motorhome}}')->with('success','Review edited');
+        return redirect()->route('motorhome.show', $motorhome);
+
     }
 
     /**
@@ -122,9 +121,9 @@ class MotorhomeReviewController extends Controller
         $review = MotorhomeReview::find($id);
         if(auth()->user()->id == $review->user_id || auth()->user()->admin == 1){
             $review ->  delete();
-            return redirect('/motorhomes/{{$motorhome}}')->with('success','Review Deleted ');
+            return redirect('/reviews')->with('success','Review Deleted ');
           
         }
-        return redirect('/motorhomes/{{$motorhome}}')->with('error', 'Unautharize page' );
+        return redirect('/motorhomes')->with('error', 'Unautharize page' );
     }
 }
