@@ -12,7 +12,7 @@
                             @if(!Auth::guest())
                             @if(Auth::user()->admin == 1)
                             <th>  </th>
-                            <th>  </th>
+
                             @endif
                             @endif
                          
@@ -28,7 +28,6 @@
 
                                 @if(!Auth::guest())
                                 @if(Auth::user()->admin == 1 )
-                                <td><a href="/rents/{{$rent->id}}/edit" class="btn btn-default">Edit</a> </td>
                                 <td>
                                 {!!Form::open(['action' => ['RentController@destroy', $rent->id], 'method' => 'POST', 'class' => 'pull-right'])!!}
                                 {{Form::hidden('_method', 'DELETE')}}
