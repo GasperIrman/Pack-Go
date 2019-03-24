@@ -72,7 +72,7 @@ class RentController extends Controller
         $rent->rent_end = $request->input('rent_stop')  ;
         $rent->user_id =auth()->user()->id; 
         $rent->save();
-        return redirect('/rents')->with('success','Rented');
+        return redirect('/home')->with('success','Rented');
        }
        return redirect('/rents')->with('error','Date already in use');
     }
@@ -139,7 +139,7 @@ class RentController extends Controller
         $rent->rent_start = $request->input('rent_start')  ;
         $rent->rent_end = $request->input('rent_stop')  ;
         $rent->save();
-        return redirect('/rents')->with('success','Rent edited');
+        return redirect('/home')->with('success','Rent edited');
     }
     return redirect('/rents')->with('error','Date already in use');
 }

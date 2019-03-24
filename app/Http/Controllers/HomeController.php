@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\User;
+use App\Rent;
+use App\Motorhome;
+use App\RVModel;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -22,7 +25,11 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
+    
     {
-        return view('home');
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+        $rent = Rent::find($user_id);
+        return view('home')->with('motorhomes',$user->motorhome)->with('rents',$user->rent);;
     }
 }
