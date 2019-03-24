@@ -4,7 +4,9 @@
 <div class="card-deck" style="margin-top: 5em">
 @foreach ($motorhomes as $key => $motorhome)
         <div class="card" style="border-radius: 17px; border: solid 1px black">
-          <img class="card-img-top" src="storage/cover_images/{{$motorhome->cover_image}}" alt="Card image cap">
+          <div style="margin:0px auto; padding-bottom:10px">
+          <img class="card-img-top" style="max-height:200px"src="storage/cover_images/{{$motorhome->cover_image}}" alt="Card image cap">
+          </div>
           <div class="card-body">
             <h5 class="card-title">{{$motorhome->model->name}}</h5>
             <p class="card-text">{{$motorhome->description}}</p>
@@ -14,21 +16,46 @@
  @endforeach
       </div>
  @endif
+ <div class="card-deck" style="margin-top: 1em">
+    <div class="card" style="border-radius: 17px; border: solid 1px black">
+        <div class="card-body">
+          <h1  class="display-1" style="text-align:center">{{$user}}</h1>
+          <h3 style="text-align:center">USERS</h3>
+          <div style="text-align:center">
+          <a href="/register"><button type="button" class="btn btn-outline-dark">JOIN US</button></a><br><br>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="border-radius: 17px; border: solid 1px black">
+          <div class="card-body">
+            <h1  class="display-1" style="text-align:center">{{$cmotorhome}}</h1>
+            <h3 style="text-align:center">MOTORHOMES</h3>
+          <div style="text-align:center">
+            <a href="/motorhomes"><button type="button" class="btn btn-outline-dark" >CHECK THEM</button></a><br><br>
+          </div>
+          </div>
+        </div>
+        <div class="card" style="border-radius: 17px; border: solid 1px black">
+            <div class="card-body">
+              <h1  class="display-1" style="text-align:center">{{$rent}}</h1>
+              <h3 style="text-align:center"> RENTS</h3>
+              <div style="text-align:center">
+              <a href="/motorhomes"><button type="button" class="btn btn-outline-dark">RENT IT</button></a><br><br>
+              </div>
+            </div>
+          </div>
+      
 
+</div>
+ 
  <div class="jumbotron jumbotron-fluid" style=" margin-top: 20px; background-color: white; border-radius: 17px; border: solid 1px black">
     <div class="container">
-      <h1 class="display-4">Fluid jumbotron</h1>
-      <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+      <h1 class="display-6">MOTORHOMES ARE OUR SECOND HOME</h1>
+      <p class="lead">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat felis ac lectus ullamcorper lacinia. Nunc lobortis ut augue ac malesuada. Morbi faucibus eget odio vitae ullamcorper. Vivamus vulputate ligula eget bibendum aliquet. Nulla vitae commodo leo. Nullam a luctus massa. Fusce vel dictum ante. Aenean nisi purus, feugiat vitae facilisis pretium, venenatis placerat leo. Nullam efficitur pretium varius. Vestibulum finibus luctus ultricies. Curabitur ultrices felis vitae sapien vestibulum, eget vehicula leo luctus. Phasellus eget quam id erat pulvinar interdum. Donec commodo magna eget vestibulum volutpat. Sed augue risus, vulputate vitae nulla ut, lacinia ultrices velit. Integer at risus vulputate ante rhoncus rhoncus.
+          
+          </p>
      
     </div>
   </div>
-  <div class="card" style="border-radius: 17px; border: solid 1px black">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
-      </div>
-    </div>
     @endsection
