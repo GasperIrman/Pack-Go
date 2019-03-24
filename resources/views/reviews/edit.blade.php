@@ -15,7 +15,7 @@
     <div class="form-group">
         {{Form::label('headline','Headline')}}
         {{
-            Form::text('rent_start',$review->headline,['class'=>'form-control'])
+            Form::text('headline',$review->headline,['class'=>'form-control'])
         }}
     </div>
     <div class="form-group">

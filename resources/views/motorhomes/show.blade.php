@@ -50,7 +50,17 @@
                         <p>{{$motorhomereview->description}}</p>
                         <h5>Rating: {{$motorhomereview->rating}}/5</h5>
                         <small>by <a href="{{route('users.show', $motorhomereview->user)}}">{{$motorhomereview->user->name}}</a></small>
-                   </div>
+                        @if(!Auth::guest())
+                        @if(Auth::user()->admin == 1  || Auth::user()->id == $motorhomereview->user_id) 
+                        {!!Form::open(['action' => ['MotorhomeReviewController@destroy', $motorhomereview->id], 'method' => 'POST', 'class' => 'pull-right'])!!}
+                        {{Form::hidden('_method', 'DELETE')}}
+                        {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
+                        {!!Form::close()!!}
+                        <td><a href="/reviews/{{$motorhomereview->id}}/edit" class="btn btn-default">Edit</a> </td>
+
+                        @endif
+                        @endif
+                    </div>
                </div>
            </div>  </div>
       </div>

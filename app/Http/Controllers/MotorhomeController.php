@@ -97,7 +97,7 @@ $path = $request->file('cover_image')->storeAs('public/cover_images/',$fileNameT
     public function show($id)
     {
         $motorhome = Motorhome::find($id);
-        $motorhomereviews = Motorhomereview::where('motorhome_id',$id)->get();
+        $motorhomereviews = Motorhomereview::where('motorhome_id',$id)->orderBy('id','desc')->get();
     $average = Motorhomereview::where('motorhome_id', $id)
         ->groupBy('motorhome_id')
         ->avg('rating');
