@@ -36,6 +36,9 @@
 
 @if(!Auth::guest())
 
+<a href="/reviews/create/{{$motorhome->id}}"><button type="button" class="btn btn-outline-dark" style="position: absolute;
+    left: 0px;margin-left: 50px;">WRITE A REVIEW</button></a><br>
+
 <a href="/rents/create/{{$motorhome->id}}"><button type="button" class="btn btn-outline-dark" style="position: absolute;
     right: 0px;margin-right: 50px;">RENT</button></a><br>
     
@@ -51,12 +54,6 @@
 
 
 @endif
-
-
-<small>Added by {{$motorhome->user->name}}</small><br>
-
-<a href="/reviews/create/{{$motorhome->id}}"><button type="button" class="btn btn-outline-dark" style="position: absolute;
-    left: 0px;margin-left: 50px;">WRITE A REVIEW</button></a><br>
 
 
 @if(count($motorhomereviews) >= 1)
