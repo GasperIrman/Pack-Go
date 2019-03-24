@@ -19,10 +19,13 @@ Route::resource('rvmodels', 'RVModelController');
 Route::resource('users', 'UserController')->middleware('verified');; 
 Route::resource('cities', 'CityController'); 
 Route::resource('brands', 'BrandController'); 
+Route::resource('reviews', 'MotorhomeReviewController'); 
+
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
 
 Route::get('/', 'PageController@index' );
 Route::get('/about', 'PageController@about' );
@@ -34,3 +37,9 @@ Auth::routes(['verify' => true]);
 
 //za rent da dobis motorhome id
 Route::get('/rents/create/{id}', 'RentController@create');
+
+//za reviwe
+Route::get('/reviews/create/{id}', 'MotorhomeReviewController@create');
+
+
+Route::get('motorhomes/{id}', ['as' => 'motorhome.show', 'uses' => 'MotorhomeController@show']);
