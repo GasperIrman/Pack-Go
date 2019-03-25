@@ -82,4 +82,17 @@ class CountryController extends Controller
     {
         //
     }
+
+    public function live($query)
+    {
+        $countries = Country::where('name', 'LIKE', '%'.$query.'%')->pluck('name');
+        $return = '';
+        foreach($countries as $id => $country)
+        {
+            $return .= '<option  onclick="select(this.id)" id="Country'.$id.'">'.$country.'</option>';
+        }
+        if($return == '')
+            $return = 'No countries found';
+        return $return;
+    }
 }

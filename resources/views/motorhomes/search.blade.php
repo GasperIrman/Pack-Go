@@ -1,37 +1,42 @@
 @extends('layouts.app')
 <!-- tle se nek filter navbar ko se expanda -->
 @section('content')
-<div class="" id="parentFilter" style="background-color: #a0a0a0; margin-top: -25px; padding: 15px; width: auto; height: 10vh; overflow: hidden;border-radius: 15px">
+<div class="" id="parentFilter" style="background-color: lightgrey; margin-top: -20px; padding: 15px; width: auto; overflow: hidden; border-radius: 15px; border: black 1px solid">
   <!-- ko bos gor kliknu se bo filter bar expandu cez sirino ekrana pa mal se navzdol pa bos meu opcije za filtre -->
-<button id="filter" class="btn">
+<div id="filter" class="btn">
   Filter
-</button>
+</div>
 <br><br>
 {{ Form::open(['action' => 'MotorhomeController@filter']) }}
-    {{ Form::label('Model / Description') }}
-    <div style="display: inline">
-      {{ Form::text('search', '', ['placeholder' => 'Search', 'onkeyup' => 'showResult(this.value)', 'style' => 'display: inline-block; z-index: 10', 'autocomplete' => 'off']) }}
-      <div id="live" class="dropdown-content" style="width: 160px; position: absolute; left: 19.1vw; background-color: white; border-radius: 5px;"></div>
+  <div class="row">
+    <div class="col-md-3 col-sm-3">
+      {{ Form::label('Model / Description') }}
+        {{ Form::text('search', '', ['class' => 'form-control', 'placeholder' => 'Search', 'onkeyup' => 'showResult(this.value, "#liveModel")', 'style' => 'display: block;', 'autocomplete' => 'off', 'id' => 'Models']) }}
+        <div id="liveModel" class="dropdown-content" style="width: 90%; position: absolute; margin-left: 0vw; background-color: white; border-radius: 5px; z-index: 5"></div>
     </div>
-    {{ Form::label('Country') }}
-    {{ Form::text('cntry', '', ['placeholder' => 'Search']) }}
 
-    {{ Form::label('City') }}
-    {{ Form::text('city', '', ['placeholder' => 'Search']) }}
+    <div class="col-md-3 col-sm-3">
+      {{ Form::label('Country') }}
+      {{ Form::text('cntry', '', ['class' => 'form-control', 'placeholder' => 'Search', 'onkeyup' => 'showResult(this.value, "#liveCountry")', 'style' => 'display: block;', 'autocomplete' => 'off', 'id' => 'Countries']) }}
+      <div id="liveCountry" class="dropdown-content" style="width: 90%; position: absolute; margin-left: 0vw; background-color: white; border-radius: 5px; z-index: 5"></div>
+    </div>
 
-    {{ Form::label('Bed number') }}
-    {{ Form::text('beds', '', ['placeholder' => 'Search']) }}<br><br>
+    <div class="col-md-3 col-sm-3">
+      {{ Form::label('City') }}
+      {{ Form::text('city', '', ['class' => 'form-control', 'placeholder' => 'Search', 'onkeyup' => 'showResult(this.value, "#liveCity")', 'style' => 'display: block;', 'autocomplete' => 'off', 'id' => 'Cities']) }}
+      <div id="liveCity" class="dropdown-content" style="width: 90%; position: absolute; margin-left: 0vw; background-color: white; border-radius: 5px; z-index: 5"></div>
+    </div>
 
-    {{ Form::label('Price') }}
-    {{ Form::text('price', '', ['id' => 'ex2', 'placeholder' => 'Search', 'class' => 'span2', 'data-slider-min' => '10', 'data-slider-max' => '100', 'data-slider-step' => '1', 'data-slider-value'=>'[250,450]']) }}
-
-    {{ Form::label('Rating') }}
-    {{ Form::text('rating', '', ['placeholder' => 'Search']) }}
-
-    {{ Form::label('Year') }}
-    {{ Form::date('year', '', ['placeholder' => 'Search']) }}
-
-    {{ Form::submit('Search', ['class' => 'btn btn-primary']) }}
+    <div class="col-md-3 col-sm-3">
+      {{ Form::label('Bed number') }}
+    {{ Form::text('beds', '', ['class' => 'form-control', 'placeholder' => 'Search', 'style' => 'display: block']) }}
+    </div>
+  </div>
+  <div class="row" style="margin-top: 10px">
+    <div class="col-md-3 col-sm-3">
+      {{ Form::submit('Search', ['class' => 'btn btn-outline-dark', 'style' => 'display: block; '])}}
+    </div>
+  </div>
   {{ Form::close() }}
 </div>
 <br>
@@ -80,7 +85,7 @@
   var expanded = false;
   var btn = $('#filter');
   var parent = $('#parentFilter');
-
+/*
   $('#filter').on('click', function(event){
     if(!expanded)
     {
@@ -93,27 +98,53 @@
       parent.animate({width: 'auto', height: '10vh'}, 250);
     }
   });
-
-  function showResult(value)
+*/
+  function showResult(value, id)
   {
     if(value.length == 0)
     {
-      $('#live').html('');
-      $('#live').css('border', '');
+      $(id).html('');
       return;
     }
+    console.log(id);
     rq = new XMLHttpRequest();
     rq.onreadystatechange=function(){
       if(this.readyState == 4 && this.status == 200)
       {
         //$('#live').html('<select style="width: 159px; z-index: 1; position: relative">' + this.responseText + '</select>');
-        $('#live').html('<a href="#"' + this.responseText + '</a>');
-        $('#live').css('border', 'solid black 1px');
+        $(id).html(this.responseText);
         console.log(this.responseText);
       } 
     }
-  rq.open("GET","live/"+value,true);
+    if(id == '#liveModel')
+      rq.open("GET","liveModel/"+value,true);
+
+    if(id == '#liveCountry')
+      rq.open("GET","liveCountry/"+value,true);
+
+    if(id == '#liveCity')
+      rq.open("GET","liveCity/"+value,true);
   rq.send();
+  }
+
+  function select(id)
+  {
+    if(id.startsWith('Model'))
+    {
+      $('#Models').val($('#'+id).val());
+      $('#'+id).parent().html('');
+    }
+    if(id.startsWith('Country'))
+    {
+      $('#Countries').val($('#'+id).val());
+      $('#'+id).parent().html('');
+    }
+    if(id.startsWith('City'))
+    {
+      $('#Cities').val($('#'+id).val());
+      $('#'+id).parent().html('');
+      
+    }
   }
 </script>
 @endsection
