@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Rent;
 use App\User;
 use App\Motorhome;
+use App\Mail\ProviderEmail;
+use Illuminate\Support\Facades\Mail;
 
 use Illuminate\Http\Request;
 
@@ -72,6 +74,12 @@ class RentController extends Controller
         $rent->rent_end = $request->input('rent_stop')  ;
         $rent->user_id =auth()->user()->id; 
         $rent->save();
+
+
+        //Email stuff
+        $mail = new \stdClass();
+
+        Mail::to($rent->motorhome->user->email)->send(new ProviderEmail($mail));
         return redirect('/home')->with('success','Rented');
        }
        return redirect('/rents')->with('error','Date already in use');
