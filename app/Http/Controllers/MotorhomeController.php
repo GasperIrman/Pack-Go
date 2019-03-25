@@ -209,15 +209,6 @@ class MotorhomeController extends Controller
         if($rq->input('beds') != ''){
             $motorhomes->where('beds', $rq->input('beds'));
         }
-        if($rq->input('price') != ''){
-            //$motorhomes->where('price', $rq->input('search'));
-        }
-        if($rq->input('rating') != ''){
-            //$motorhomes->where('ds', $rq->input('search'));
-        }
-        if($rq->input('year') != ''){
-            $motorhomes->join('r_v_models', 'r_v_models.id', 'model_id')->where('r_v_models.year', $rq->input('year'));
-        }
 
 
         //$countries = Country::where('name', 'LIKE', '%'.$rq->input('cntry').'%')->get();

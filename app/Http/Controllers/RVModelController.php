@@ -150,8 +150,10 @@ class RVModelController extends Controller
     $return = '';
     foreach($models as $id => $model)
     {
-        $return .= '<option id="'.$id.'">'.$model.'</option>';
+        $return .= '<option  onclick="select(this.id)" id="Model'.$id.'">'.$model.'</option>';
     }
+    if($return == '')
+            $return = 'No models found';
     return $return;
  }
 }

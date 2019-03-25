@@ -82,4 +82,17 @@ class CityController extends Controller
     {
         //
     }
+
+    public function live($query)
+    {
+        $cities = City::where('name', 'LIKE', '%'.$query.'%')->pluck('name');
+        $return = '';
+        foreach($cities as $id => $city)
+        {
+            $return .= '<option onclick="select(this.id)" id="City'.$id.'">'.$city.'</option>';
+        }
+        if($return == '')
+            $return = 'No cities found';
+        return $return;
+    }
 }
