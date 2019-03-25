@@ -41,5 +41,7 @@ Route::get('/rents/create/{id}', 'RentController@create');
 //za reviwe
 Route::get('/reviews/create/{id}', 'MotorhomeReviewController@create');
 
+Route::get('/provider/{id}', 'UserController@provider');
 
 Route::get('motorhomes/{id}', ['as' => 'motorhome.show', 'uses' => 'MotorhomeController@show']);
+

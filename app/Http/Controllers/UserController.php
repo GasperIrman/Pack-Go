@@ -113,4 +113,13 @@ class UserController extends Controller
         $user->update();
         return 'Password updated';
     }
+
+    public function provider(Request $rq, $id)
+    {
+        $user = User::find($id);
+        $user->provider = true;
+        $user->update();
+        return redirect()->back()->with('success', 'You have successfully applied to be a provider!');
+    }
+
 }
