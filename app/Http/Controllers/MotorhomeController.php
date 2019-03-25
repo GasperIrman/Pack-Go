@@ -95,13 +95,17 @@ $path = $request->file('cover_image')->storeAs('public/cover_images/',$fileNameT
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
+
+    {   $count = Motorhomereview::where('motorhome_id', $id)
+        ->groupBy('motorhome_id')
+        ->count('rating');
+
         $motorhome = Motorhome::find($id);
         $motorhomereviews = Motorhomereview::where('motorhome_id',$id)->orderBy('id','desc')->get();
     $average = Motorhomereview::where('motorhome_id', $id)
         ->groupBy('motorhome_id')
         ->avg('rating');
-        return view('motorhomes.show')->with('motorhome', $motorhome )->with('motorhomereviews',$motorhomereviews)->with('average',$average);
+        return view('motorhomes.show')->with('motorhome', $motorhome )->with('motorhomereviews',$motorhomereviews)->with('average',$average)->with('count',$count);
     }
 
     /**

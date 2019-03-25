@@ -18,7 +18,7 @@
 <p>{!!$motorhome->description!!}</p> 
 <br>
 <h3>Letnik:</h3>
-<p>{!!$motorhome->model->year!!}</p> 
+<p>{!!date('Y', strtotime($motorhome->model->year))!!}</p> 
 <br>
 <h3>Model:</h3>
 <p>{!!$motorhome->model->name!!}</p> 

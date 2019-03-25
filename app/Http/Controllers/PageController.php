@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Motorhome;
 use App\Brand;
 use App\RVModel;
+use App\User;
+use App\Rent;
 
 use Illuminate\Http\Request;
 
@@ -12,10 +14,10 @@ class PageController extends Controller
     
     public function index(){
       $motorhomes = Motorhome::orderBy('created_at','desc')->limit(3)->get();
-//$user = User::count();
-        //$rent = Rent::count();
-        
-       return view('index')->with('motorhomes',$motorhomes); ;//->with('car',$user)->with('user',$user)->with('rent',$rent);
+      $user = User::count();
+      $rent = Rent::count();
+      $cmotorhome = Motorhome::count();
+       return view('index')->with('motorhomes',$motorhomes)->with('user',$user)->with('rent',$rent)->with('cmotorhome',$cmotorhome);
     }
     public function about(){
        

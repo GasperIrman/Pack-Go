@@ -14,6 +14,9 @@
 <h3>Rv description:</h3>
 <p>{!!$motorhome->description!!}</p> 
 <br>
+<h3>Beds:</h3>
+<p>{!!$motorhome->beds!!}</p> 
+<br>
 <h3>Letnik:</h3>
 <p>{!!date('Y', strtotime($motorhome->model->year))!!}</p> 
 <br>
@@ -25,10 +28,14 @@
 <h3>Price per day:</h3>
 <p id="price">{!!$motorhome->price!!} EUR</p>
 <h4>LASTNIK : {{$motorhome->user->name}}</h4> 
-<h3>Beds:</h3>
-<p>{!!$motorhome->beds!!}</p> 
 <h3>Average rating:</h3>
-<h2>{!!$one_decimal_place = number_format($average, 1)!!}/5</h2> 
+<div class="col-xs-12 col-md-6 text-center">
+        <h1 class="rating-num">
+                {!!$one_decimal_place = number_format($average, 1)!!}/5 </h1>
+        <div>
+            <span class="glyphicon glyphicon-user"></span>{{$count}} total
+        </div>
+    </div>
 </div>
             </div>
 </div>
