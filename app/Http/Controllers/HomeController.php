@@ -30,6 +30,7 @@ class HomeController extends Controller
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
         $rent = Rent::find($user_id);
-        return view('home')->with('motorhomes',$user->motorhome)->with('rents',$user->rent);;
+        
+        return view('home')->with('motorhomes',$user->motorhome)->with('rents',$user->rent);
     }
 }

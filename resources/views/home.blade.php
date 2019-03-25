@@ -120,6 +120,53 @@
                         <p> You have no rents </p> 
                     
                     @endif
+                    
+                    <h3>Your Motorhome rented:</h3>
+                    @if(count($rents)> 0)
+            
+                        @foreach ($rents as $rent)
+
+                        <div class="jumbotron jumbotron-fluid" style=" margin-top: 20px; background-color: white; border-radius: 17px; border: solid 1px black">
+                                <div class="container">
+                                    
+                                                <div class="row">
+                                                <div class="col-md-2 col-sm-2">
+                                                        <img style="width:100%" src="storage/cover_images/{{$rent->motorhome->cover_image}}">
+            
+                                                               
+                                                </div>
+                                               <div class="col-md-4 col-sm-4">
+                                                    <h4>{{$rent->motorhome->model->name}}</h4>
+                                                    <h5>Owner: {{$rent->motorhome->user->name}}</h5>
+                                                   
+                                               </div>
+                                               <div class="col-md-2 col-sm-2">
+                                                   <p>Rent start:</p>
+                                                    <p>{{date('d.m.Y', strtotime($rent->rent_start))}}</p>
+                                                </div>
+                                               <div class="col-md-2 col-sm-2">
+                                                    <p>Rent end:</p>
+                                                    <p>{{date('d.m.Y', strtotime($rent->rent_end))}}</p>
+                                                
+                                               </div>
+                                               <div class="col-md-2 col-sm-2">
+                                                {!!Form::open(['action' => ['RentController@destroy', $rent->id], 'method' => 'POST', 'class' => 'pull-right'])!!}
+                                                {{Form::hidden('_method', 'DELETE')}}
+                                                {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
+                                                  {!!Form::close()!!}
+              
+                                                
+                                                </div>
+                                      
+                                   </div>  </div>
+                              </div>
+                    
+                        @endforeach
+                    </table>
+                    @else
+                        <p> You have no rents </p> 
+                    
+                    @endif
 
                 </div>
             </div>
