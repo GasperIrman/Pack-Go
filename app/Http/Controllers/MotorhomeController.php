@@ -197,7 +197,19 @@ class MotorhomeController extends Controller
         $query = $rq->input('search');
         $models = RVModel::where('name', 'LIKE', '%'.$query.'%')->pluck('id');
         //return $models;
+        $return = new Motorhome();
+        $return = $return->newQuery();
         $return = Motorhome::where('description', 'LIKE', '%'.$query.'%')->orWhereIn('model_id', $models)->get();
+
+        $rating = 0;
+        foreach($return as $motorhome)
+        {
+          $rating = MotorhomeReview::where('motorhome_id', $motorhome->id)->average('rating');
+          $motorhome->rating = $rating;
+          if(!$rating)
+            $motorhome->rating = 0;
+        }
+        $return->sortByDesc('rating');
         return view('motorhomes.search')->with('motorhomes', $return);
     }
 
@@ -227,10 +239,18 @@ class MotorhomeController extends Controller
             $motorhomes->where('beds', $rq->input('beds'));
         }
 
+        $rating = 0;
+        foreach($motorhomes as $motorhome)
+        {
+          $rating = MotorhomeReview::where('motorhome_id', $motorhome->id)->average('rating');
+          $motorhome->rating = $rating;
+          if(!$rating)
+            $motorhome->rating = 0;
+        }
         //$countries = Country::where('name', 'LIKE', '%'.$rq->input('cntry').'%')->get();
         //$cities = City::where('name', 'LIKE', '%'.$rq->input('city').'%')->get();
         //$models = RVModel::where('name', 'LIKE', '%'.$query.'%')->pluck('id');
         //return $motorhomes->get();
-        return view('motorhomes.search')->with('motorhomes', $motorhomes->get());
+        return view('motorhomes.search')->with('motorhomes', $motorhomes->get()->sortByDesc('rating'));
     }
 }
