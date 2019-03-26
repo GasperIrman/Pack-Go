@@ -148,4 +148,17 @@ class RVModelController extends Controller
    
     
  }
+
+ public function live($query)
+ {
+    $models = RVModel::where('name', 'LIKE', '%'.$query.'%')->pluck('name');
+    $return = '';
+    foreach($models as $id => $model)
+    {
+        $return .= '<option  onclick="select(this.id)" id="Model'.$id.'">'.$model.'</option>';
+    }
+    if($return == '')
+            $return = 'No models found';
+    return $return;
+ }
 }

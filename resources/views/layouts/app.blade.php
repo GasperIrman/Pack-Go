@@ -41,8 +41,10 @@
            @include('inc.navbar')
 
         <main class="py-4">
+            
             <div class="container">
-            @yield('content')
+              @include('inc.messages')
+              @yield('content')
             </div>
         </main>
     </div>

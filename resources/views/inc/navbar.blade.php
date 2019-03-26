@@ -50,20 +50,26 @@
                             </li>
 
                             @if(!Auth::guest())
-                            @if(Auth::user()->admin == 1)
-                            <li class="nav-item">
-                                   <a class="nav-link" href="/rvmodels">MODELS</a>
-                               </li>
-                               <li class="nav-item">
-                                       <a class="nav-link" href="/brands">BRADNS</a>
+                                @if(Auth::user()->admin == 1)
+                                <li class="nav-item">
+                                       <a class="nav-link" href="/rvmodels">MODELS</a>
                                    </li>
                                    <li class="nav-item">
-                                        <a class="nav-link" href="/rents">RENTS</a>
-                                    </li>
-                           @else
-
+                                           <a class="nav-link" href="/brands">BRANDS</a>
+                                       </li>
+                                       <li class="nav-item">
+                                            <a class="nav-link" href="/rents">RENTS</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/users">USERS</a>
+                                        </li>
                                 @endif
-                               @endif
+                            @endif
+                        <li class="nav-item">
+                            {{ Form::open(['action' => 'MotorhomeController@search', 'method' => 'POST'] )}}
+                            {{ Form::text('search', '', ['placeholder' => 'search', 'style'=>'border-radius: 17px; border: solid 1px black; ']) }}
+                            {{ Form::close() }}
+                        </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }} <span class="caret"></span>

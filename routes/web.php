@@ -45,3 +45,10 @@ Route::get('/provider/{id}', 'UserController@provider');
 
 Route::get('motorhomes/{id}', ['as' => 'motorhome.show', 'uses' => 'MotorhomeController@show']);
 
+Route::post('/search', 'MotorhomeController@search');
+Route::post('/filter', 'MotorhomeController@filter');
+
+//Live search
+Route::get('/liveModel/{Query}', 'RVModelController@live');
+Route::get('/liveCountry/{Query}', 'CountryController@live');
+Route::get('/liveCity/{Query}', 'CityController@live');

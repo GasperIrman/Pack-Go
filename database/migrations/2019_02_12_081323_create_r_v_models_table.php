@@ -17,7 +17,7 @@ class CreateRVModelsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('horse_power');
-            $table->timestamp('year');
+            $table->year('year');
             $table->integer('affordability_rating');
             $table->integer('luxury');
             $table->integer('brand_id');
