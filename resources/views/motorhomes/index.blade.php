@@ -38,9 +38,6 @@
                                         <li>MODEL: {{$motorhome->model->name}}</li>
                                         <li>BRAND: {{$motorhome->model->brand->name}}</li>
                                       </ul>
-
-                                      <h3>Average rating:</h3>
-<h2>treba popravit/5</h2> 
                                     
                                <small>by <a href="{{route('users.show', $motorhome->user)}}">{{$motorhome->user->name}}</a></small>
                            </div>
