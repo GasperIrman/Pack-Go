@@ -8,6 +8,7 @@ use App\RVModel;
 use App\MotorhomeReview;
 use App\Country;
 use App\City;
+use App\User;
 use Illuminate\Http\Request;
 
 class MotorhomeController extends Controller
@@ -206,26 +207,25 @@ class MotorhomeController extends Controller
         $motorhomes = $motorhomes->newQuery();
         // = Motorhome::where('description', 'LIKE', '%'.$query.'%')->orWhereIn('model_id', $models)->get();
         if($rq->input('search') != ''){
-            //$models = RVModel::where('name', 'LIKE', '%'.$rq->input('search').'%')->pluck('id');
-            //$motorhomes->where('description', 'LIKE', '%'.$rq->input('search').'%')->orWhereIn('model_id', $models);
-            $motorhomes->where('description', 'LIKE', '%'.$rq->input('search').'%')->join('r_v_models', 'r_v_models.id', 'model_id')->orWhere('r_v_models.name', 'LIKE', '%'.$rq->input('search').'%');
+          $models = RVModel::where('name', 'LIKE', '%'.$rq->input('search').'%')->pluck('id');
+          $motorhomes->where('description', 'LIKE', '%'.$rq->input('search').'%')->orWhereIn('model_id', $models);
         }
-        if($rq->input('cntry') != ''){
-          if($rq->input('search') != ''){
-            $motorhomes->join('brands', 'brands.id', 'r_v_models.brand_id')->join('countries', 'countries.id', 'brands.country_id')->where('countries.name', 'LIKE', '%'.$rq->input('cntry').'%');
-          }
-          else{
-            $motorhomes->join('r_v_models', 'r_v_models.id', 'model_id')->join('brands', 'brands.id', 'r_v_models.brand_id')->join('countries', 'countries.id', 'brands.country_id')->where('countries.name', 'LIKE', '%'.$rq->input('cntry').'%');
-          }
+        if($rq->input('cntry') != ''){  
+          $countries = Country::where('name', 'LIKE', '%'.$rq->input('cntry').'%')->pluck('id');
+          $brands = Brand::whereIn('country_id', $countries)->pluck('id');
+          $models = RVModel::whereIn('brand_id', $brands)->pluck('id');
+
+          $motorhomes->whereIn('model_id', $models);
             
           }
         if($rq->input('city') != ''){
-            $motorhomes->join('users', 'users.id', 'user_id')->join('cities', 'cities.id', 'users.city_id')->where('cities.name', 'LIKE', '%'.$rq->input('cntry').'%');
+          $cities = City::where('name', 'LIKE', '%'.$rq->input('city').'%')->pluck('id');
+          $users = User::whereIn('city_id', $cities)->pluck('id');
+          $motorhomes->whereIn('user_id', $users);
         }
         if($rq->input('beds') != ''){
             $motorhomes->where('beds', $rq->input('beds'));
         }
-
 
         //$countries = Country::where('name', 'LIKE', '%'.$rq->input('cntry').'%')->get();
         //$cities = City::where('name', 'LIKE', '%'.$rq->input('city').'%')->get();
