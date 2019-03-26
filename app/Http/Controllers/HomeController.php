@@ -29,13 +29,12 @@ class HomeController extends Controller
     {
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
-        $motorhomes = Motorhome::where('user_id', $user_id)->get();
+        $motorhomes = Motorhome::where('user_id', $user_id)->pluck('id');
         $myRent = Rent::whereIn('motorhome_id', $motorhomes)->get();
 
 
 
         $rent = Rent::where('user_id', $user_id)->get();
-        
         return view('home')->with('motorhomes', $user->motorhome)->with('myRents', $myRent)->with('rents', $rent);
     }
 }
