@@ -6,9 +6,26 @@
     <div class="well">
             <div class="row">
            <div class="col-md-8 col-sm-8 ">
-            @foreach($images as $image)
-              <img style="width:500px" src="/storage/{{$image->url}}">
-            @endforeach
+
+
+
+            <div id="slider" style="position: relative;overflow: hidden;margin: 20px auto 0 auto;border-radius: 4px;">
+            <a href="#" class="control_next" style="position: absolute;top: 40%;z-index: 999;display: block;padding: 4% 3%;width: auto;height: auto;background: #2a2a2a;color: #fff;text-decoration: none;font-weight: 600;font-size: 18px;opacity: 0.8;cursor: pointer;right: 0"></a>
+            <a href="#" class="control_prev" style="position: absolute;top: 40%;z-index: 999;display: block;padding: 4% 3%;width: auto;height: auto;background: #2a2a2a;color: #fff;text-decoration: none;font-weight: 600;font-size: 18px;opacity: 0.8;cursor: pointer;"></a>
+            <ul style="position: relative; margin: 0; padding: 0; height: 200px; list-style: none;">
+               @foreach($images as $image)
+                <li style="position: relative;display: block;float: left;margin: 0;padding: 0;width: 500px;height: 300px;background: #ccc;text-align: center;line-height: 300px;"><img style="height: 100%" src="/storage{{$image->url}}"></img></li>
+               @endforeach
+            </ul>  
+          </div>
+
+          <div class="slider_option" style="position: relative;margin: 10px auto;width: 160px;font-size: 18px;">
+            <input type="checkbox" id="checkbox">
+            <label for="checkbox">Autoplay Slider</label>
+          </div>
+
+
+
   
            </div>
            <div class="col-md-4 col-sm-4">
@@ -100,4 +117,52 @@
 <br>
 <p>No reviews yet. Write one if you know someting about that motorhome</p>
 @endif
+<script>
+jQuery(document).ready(function ($) {
+
+  $('#checkbox').change(function(){
+    setInterval(function () {
+        moveRight();
+    }, 3000);
+  });
+  
+  var slideCount = $('#slider ul li').length;
+  var slideWidth = $('#slider ul li').width();
+  var slideHeight = $('#slider ul li').height();
+  var sliderUlWidth = slideCount * slideWidth;
+  
+  $('#slider').css({ width: slideWidth, height: slideHeight });
+  
+  $('#slider ul').css({ width: sliderUlWidth, marginLeft: - slideWidth });
+  
+    $('#slider ul li:last-child').prependTo('#slider ul');
+
+    function moveLeft() {
+        $('#slider ul').animate({
+            left: + slideWidth
+        }, 200, function () {
+            $('#slider ul li:last-child').prependTo('#slider ul');
+            $('#slider ul').css('left', '');
+        });
+    };
+
+    function moveRight() {
+        $('#slider ul').animate({
+            left: - slideWidth
+        }, 200, function () {
+            $('#slider ul li:first-child').appendTo('#slider ul');
+            $('#slider ul').css('left', '');
+        });
+    };
+
+    $('a.control_prev').click(function () {
+        moveLeft();
+    });
+
+    $('a.control_next').click(function () {
+        moveRight();
+    });
+
+});    
+</script>
 @endsection
