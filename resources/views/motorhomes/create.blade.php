@@ -27,7 +27,7 @@
         
                 </div> 
         <div class="form-group">
-            {{Form::file('[ 'multiple'=> "multiple" 'name'=> "photos[]" ]')}}        
+            {{ Form::file('Astk', ['multiple', 'name' => 'photos[]']) }}        
         
         </div>
         {{Form::submit('Submit',['class'=>'btn btn-primary'])}}

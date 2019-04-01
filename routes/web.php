@@ -52,3 +52,7 @@ Route::post('/filter', 'MotorhomeController@filter');
 Route::get('/liveModel/{Query}', 'RVModelController@live');
 Route::get('/liveCountry/{Query}', 'CountryController@live');
 Route::get('/liveCity/{Query}', 'CityController@live');
+
+
+//Multiple file upload
+Route::post('/images', 'PhotoController@uploadSubmit');
