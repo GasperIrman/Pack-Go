@@ -57,6 +57,16 @@ class MotorhomeController extends Controller
             'cover_image' => 'image|nullable|max:1999',
            
         ]);
+
+        $images=array();
+        if($files=$request->file('photos')){
+            foreach($files as $file){
+                $name=$file->getClientOriginalName();
+                $file->move('image',$name);
+                $images[]=$name;
+            }
+        }
+
         if($request->hasFile('cover_image')){
             //Handle File Upload
             if($request->hasFile('cover_image')){
