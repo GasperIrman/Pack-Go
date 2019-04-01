@@ -39,8 +39,8 @@
 
 @if(!Auth::guest())
 
-<a href="/reviews/create/{{$motorhome->id}}"><button type="button" class="btn btn-outline-dark" style="position: absolute;
-    left: 0px;margin-left: 50px;">WRITE A REVIEW</button></a><br>
+<!--<a href="/reviews/create/{{$motorhome->id}}"><button type="button" class="btn btn-outline-dark" style="position: absolute;
+    left: 0px;margin-left: 50px;">WRITE A REVIEW</button></a><br>!-->
 
 <a href="/rents/create/{{$motorhome->id}}"><button type="button" class="btn btn-outline-dark" style="position: absolute;
     right: 0px;margin-right: 50px;">RENT</button></a><br>
@@ -57,7 +57,95 @@
 
 
 @endif
+{!! Form::open(["action" => "MotorhomeReviewController@store", "method" => "POST",'enctype'=>'multipart/form-data']) !!}
+    
+<div class="form-group">
+        
+        {{ 
+            Form::hidden('motorhome_id',$motorhome->id)
+        }}
+    </div> 
+    <div class="form-group">
+            {{Form::label('headline','Headline')}}
+            {{
+                Form::text('headline',' ',['class'=>'form-control','placeholder'=>'headline', 'id' => 'headline'])
+            }}
+        </div> 
+        <div class="form-group">
+            {{Form::label('description','Description')}}
+            {{
+                Form::textarea('description',' ',['class'=>'form-control','placeholder'=>'description', 'id' => 'description'])
+            }}
+        </div> 
 
+        <div class="form-group">
+            {{Form::label('rating','Rating')}}
+            {{
+               Form::hidden('rating', '', ['id' => 'formRating'])
+            }}
+        <ul id="ratings" class="list-inline" style="display: inline-block" data-rating="4.5" title="Average rating - 4.5">
+            <li id="1" class="rating" style="cursor: pointer; color: #ccc; font-size:40px; display: inline-block">★</li>
+            <li id="2" class="rating" style="cursor: pointer; color: #ccc; font-size:40px; display: inline-block">★</li>
+            <li id="3" class="rating" style="cursor: pointer; color: #ccc; font-size:40px; display: inline-block">★</li>
+            <li id="4" class="rating" style="cursor: pointer; color: #ccc; font-size:40px; display: inline-block">★</li>
+            <li id="5" class="rating" style="cursor: pointer; color: #ccc; font-size:40px; display: inline-block">★</li>
+          </ul>
+        </div> 
+
+
+{{Form::submit('Submit',['class'=>'btn btn-primary', 'id' => 'submit'])}}
+{!! Form::close() !!}  
+<script>
+
+    $('#submit').on('click', function(event){
+      $.ajax({
+        url: '/reviews/create/' + {!! $motorhome->id !!},
+        data: {
+          description: $('#description').val(),
+          headline: $('#headline').val(),
+          rating: $('#formRating').val(),
+          _token: '{{Session::token()}}'
+        }
+        }).done(function(responce){
+        console.log(responce);
+      });
+    });
+
+    $(document).on({
+        mouseenter: function(event){
+            for(var i=1;i <= 5;i++)
+            {
+                if(i<=event.target.id)$('#'+i).css('color', '#ffcc00');
+                else $('#'+i).css('color', '#ccc');
+            }
+        }
+    }, '.rating');
+
+    $('#ratings').mouseleave(function(event){
+            if(!$('#formRating').val().length)
+            {
+                $('#1').css('color', '#ccc');
+                $('#2').css('color', '#ccc');
+                $('#3').css('color', '#ccc');
+                $('#4').css('color', '#ccc');
+                $('#5').css('color', '#ccc');
+            }
+            else
+            {
+                for(var i=1;i<=5;i++)
+                {
+                    if(i<=$('#formRating').val()) $('#'+i).css('color', '#ffcc00');
+                    else $('#'+i).css('color', '#ccc');
+                }
+            } 
+    });
+
+    $('.rating').on('click', function(event)
+    {
+        console.log(event.target.id);
+        $('#formRating').val(event.target.id);
+    });
+</script>
 
 @if(count($motorhomereviews) >= 1)
 @foreach ($motorhomereviews as $motorhomereview)
@@ -69,7 +157,16 @@
                         <h2>{{$motorhomereview->headline}}</h2>
                         <h5>DESCRIPTION:</h5> <br>
                         <p>{{$motorhomereview->description}}</p>
-                        <h5>Rating: {{$motorhomereview->rating}}/5</h5>
+                        <h5>Rating: </h5> 
+                        <ul id="ratings" class="list-inline" data-rating="4.5" title="Average rating - 4.5">
+                          @for($i = 1; $i<=5;$i++)
+                            @if($i <= $motorhomereview->rating)
+                              <li id="1" class="rating" style="cursor: pointer; color: #ffcc00; font-size:20px; display: inline-block">★</li>
+                            @else
+                              <li id="1" class="rating" style="cursor: pointer; color: #ccc; font-size:20px; display: inline-block">★</li>
+                            @endif
+                          @endfor
+                        </ul>
                         <small>by <a href="{{route('users.show', $motorhomereview->user)}}">{{$motorhomereview->user->name}}</a></small>
                         @if(!Auth::guest())
                         @if(Auth::user()->admin == 1  || Auth::user()->id == $motorhomereview->user_id) 
