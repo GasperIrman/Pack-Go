@@ -66,6 +66,10 @@
                                         <li>PRICE: {{$motorhome->price}}/PER DAY</li>
                                         <li>MODEL: {{$motorhome->model->name}}</li>
                                         <li>BRAND: {{$motorhome->model->brand->name}}</li>
+                                        <ul class="list-inline" data-rating="{{$motorhome->rating}}" title="Average rating - {{$motorhome->rating}}">
+                                          {!! $motorhome->ratingOutput !!}
+                                        </ul>
+                                      </ul>
                                       </ul>
                                     
                                <small>by <a href="{{route('users.show', $motorhome->user)}}">{{$motorhome->user->name}}</a></small>

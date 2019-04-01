@@ -27,7 +27,26 @@ class MotorhomeController extends Controller
     public function index()
     {
         $motorhomes = Motorhome::orderBy('id','desc')->get();
-        
+        foreach($motorhomes as $motorhome)
+        {
+          $rating = MotorhomeReview::where('motorhome_id', $motorhome->id)->average('rating');
+          $motorhome->rating = $rating;
+          $output = '';
+          for($i = 1; $i <= 5; $i++)
+          {
+            if($i <= $motorhome->rating)
+            {
+              $color = "color: #ffcc00;";
+            }
+            else
+            {
+              $color = "color: #ccc;";
+            }
+            $output .= '<li title="'.$i.'" class="rating" style="cursor: pointer; '.$color.' font-size:20px; display: inline-block">&#9733;</li>';
+            $motorhome->ratingOutput = $output;
+          }
+        }
+          
         return view('motorhomes.index')->with('motorhomes',$motorhomes);
     }
 
@@ -99,17 +118,29 @@ class MotorhomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-
-    {   $count = Motorhomereview::where('motorhome_id', $id)
-        ->groupBy('motorhome_id')
-        ->count('rating');
+    {   
+      $count = Motorhomereview::where('motorhome_id', $id)->groupBy('motorhome_id')->count('rating');
 
         $motorhome = Motorhome::find($id);
+
+        $rating = MotorhomeReview::where('motorhome_id', $motorhome->id)->average('rating');
+        $motorhome->rating = $rating;
+        $output = '';
+        for($i = 1; $i <= 5; $i++)
+        {
+          if($i <= $motorhome->rating)
+          {
+            $color = "color: #ffcc00;";
+          }
+          else
+          {
+            $color = "color: #ccc;";
+          }
+          $output .= '<li title="'.$i.'" class="rating" style="cursor: pointer; '.$color.' font-size:40px; display: inline-block">&#9733;</li>';
+          $motorhome->ratingOutput = $output;
+        }
         $motorhomereviews = Motorhomereview::where('motorhome_id',$id)->orderBy('id','desc')->get();
-    $average = Motorhomereview::where('motorhome_id', $id)
-        ->groupBy('motorhome_id')
-        ->avg('rating');
-        return view('motorhomes.show')->with('motorhome', $motorhome )->with('motorhomereviews',$motorhomereviews)->with('average',$average)->with('count',$count);
+        return view('motorhomes.show')->with('motorhome', $motorhome )->with('motorhomereviews',$motorhomereviews)->with('average',$motorhome->rating)->with('count',$count);
     }
 
     /**
@@ -206,8 +237,20 @@ class MotorhomeController extends Controller
         {
           $rating = MotorhomeReview::where('motorhome_id', $motorhome->id)->average('rating');
           $motorhome->rating = $rating;
-          if(!$rating)
-            $motorhome->rating = 0;
+          $output = '';
+          for($i = 1; $i <= 5; $i++)
+          {
+            if($i <= $motorhome->rating)
+            {
+              $color = "color: #ffcc00;";
+            }
+            else
+            {
+              $color = "color: #ccc;";
+            }
+            $output .= '<li title="'.$i.'" class="rating" style="cursor: pointer; '.$color.' font-size:20px; display: inline-block">&#9733;</li>';
+            $motorhome->ratingOutput = $output;
+          }
         }
         $return->sortByDesc('rating');
         return view('motorhomes.search')->with('motorhomes', $return);
@@ -240,17 +283,27 @@ class MotorhomeController extends Controller
         }
 
         $rating = 0;
+        $motorhomes = $motorhomes->get();
         foreach($motorhomes as $motorhome)
         {
           $rating = MotorhomeReview::where('motorhome_id', $motorhome->id)->average('rating');
           $motorhome->rating = $rating;
-          if(!$rating)
-            $motorhome->rating = 0;
+          $output = '';
+          for($i = 1; $i <= 5; $i++)
+          {
+            if($i <= $motorhome->rating)
+            {
+              $color = "color: #ffcc00;";
+            }
+            else
+            {
+              $color = "color: #ccc;";
+            }
+            $output .= '<li title="'.$i.'" class="rating" style="cursor: pointer; '.$color.' font-size:20px; display: inline-block">&#9733;</li>';
+            $motorhome->ratingOutput = $output;
+          }
         }
-        //$countries = Country::where('name', 'LIKE', '%'.$rq->input('cntry').'%')->get();
-        //$cities = City::where('name', 'LIKE', '%'.$rq->input('city').'%')->get();
-        //$models = RVModel::where('name', 'LIKE', '%'.$query.'%')->pluck('id');
-        //return $motorhomes->get();
-        return view('motorhomes.search')->with('motorhomes', $motorhomes->get()->sortByDesc('rating'));
+        $motorhomes->sortByDesc('rating');
+        return view('motorhomes.search')->with('motorhomes', $motorhomes);
     }
 }
