@@ -258,7 +258,7 @@ class MotorhomeController extends Controller
         foreach($return as $motorhome)
         {
           $rating = MotorhomeReview::where('motorhome_id', $motorhome->id)->average('rating');
-          $motorhome->rating = $rating;
+          $motorhome->rating = ($rating == null) ? 0 : $rating;
           $output = '';
           for($i = 1; $i <= 5; $i++)
           {
@@ -274,7 +274,8 @@ class MotorhomeController extends Controller
             $motorhome->ratingOutput = $output;
           }
         }
-        $return->sortByDesc('rating');
+        $return = $return->sortByDesc('rating');
+         $return; 
         foreach($return as $mh)
         {
           $photo = Photo::where('motorhome_id', $mh->id)->first();
@@ -314,7 +315,7 @@ class MotorhomeController extends Controller
         foreach($motorhomes as $motorhome)
         {
           $rating = MotorhomeReview::where('motorhome_id', $motorhome->id)->average('rating');
-          $motorhome->rating = $rating;
+          $motorhome->rating = ($rating == null) ? 0 : $rating;
           $output = '';
           for($i = 1; $i <= 5; $i++)
           {
@@ -330,8 +331,7 @@ class MotorhomeController extends Controller
             $motorhome->ratingOutput = $output;
           }
         }
-        $motorhomes->sortByDesc('rating');
-        $motorhomes = $motorhomes->get();
+        $motorhomes = $motorhomes->sortByDesc('id');
         foreach($motorhomes as $mh)
         {
           $photo = Photo::where('motorhome_id', $mh->id)->first();
