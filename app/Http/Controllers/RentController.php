@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Rent;
 use App\User;
 use App\Motorhome;
+use App\Photo;
 use App\Mail\ProviderEmail;
 use Illuminate\Support\Facades\Mail;
 
@@ -36,6 +37,7 @@ class RentController extends Controller
     public function create($id)
     {
         $motorhome = Motorhome::find($id);
+        $motorhome->cover_image = Photo::where('motorhome_id', $motorhome->id)->first()->url;
         return view('rents.create')->with('motorhome', $motorhome);
     }
 
