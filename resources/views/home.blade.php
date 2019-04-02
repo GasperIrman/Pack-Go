@@ -92,7 +92,7 @@
                                     
                                                 <div class="row">
                                                 <div class="col-md-2 col-sm-2">
-                                                        <img style="width:100%" src="storage/cover_images/{{$rent->motorhome->cover_image}}">
+                                                        <img style="width:100%" src="storage/{{$rent->motorhome->cover_image}}">
             
                                                                
                                                 </div>
@@ -139,7 +139,7 @@
                                       
                                                   <div class="row">
                                                   <div class="col-md-2 col-sm-2">
-                                                          <img style="width:100%" src="storage/cover_images/{{$rent->motorhome->cover_image}}">
+                                                          <img style="width:100%" src="storage/{{$rent->motorhome->cover_image}}">
               
                                                                  
                                                   </div>

@@ -37,10 +37,17 @@ class HomeController extends Controller
             $photo = Photo::where('motorhome_id', $mh->id)->first();
             $mh->cover_image = $photo->url;
         }
-
-
-
+       	
+        foreach($myRent as $re)
+        {
+        	$re->motorhome->cover_image = Photo::where('motorhome_id', $re->motorhome->id)->first()->url;
+        }
         $rent = Rent::where('user_id', $user_id)->get();
+
+        foreach($rent as $re)
+        {
+        	$re->motorhome->cover_image = Photo::where('motorhome_id', $re->motorhome->id)->first()->url;
+        }
         return view('home')->with('motorhomes', $user->motorhome)->with('myRents', $myRent)->with('rents', $rent)->with('photos', $photo);
     }
 }
