@@ -9,6 +9,7 @@ use App\MotorhomeReview;
 use App\Country;
 use App\City;
 use App\User;
+use App\Photo;
 use Illuminate\Http\Request;
 
 class MotorhomeController extends Controller
@@ -45,10 +46,15 @@ class MotorhomeController extends Controller
             $output .= '<li title="'.$i.'" class="rating" style="cursor: pointer; '.$color.' font-size:20px; display: inline-block">&#9733;</li>';
             $motorhome->ratingOutput = $output;
           }
+        foreach($motorhomes as $mh)
+        {
+          $photo = Photo::where('motorhome_id', $mh->id)->first();
+          $mh->cover_image = $photo->url;
         }
           
         return view('motorhomes.index')->with('motorhomes',$motorhomes);
     }
+}
 
     /**
      * Show the form for creating a new resource.
@@ -76,40 +82,53 @@ class MotorhomeController extends Controller
             'cover_image' => 'image|nullable|max:1999',
            
         ]);
-        if($request->hasFile('cover_image')){
-            //Handle File Upload
-            if($request->hasFile('cover_image')){
-            //Get filename with the extension
-            $filenamewithExt = $request->file('cover_image')->getClientOriginalName();
 
-            //Get just filename
-            $filename = pathinfo($filenamewithExt,PATHINFO_FILENAME);
-
-            //Get just ext
-            $extension = $request->file('cover_image')->guessClientExtension();
-
-            //FileName to store
-            $fileNameToStore = time().'.'.$extension;
-
-            //Upload Image
-            $path = $request->file('cover_image')->storeAs('public/cover_images/',$fileNameToStore);
-    }
-    else{
-        $fileNameToStore='noimage.jpg';
-    }
-     
     $motorhome = new Motorhome;
     $motorhome->description = $request->input('description')  ;
     $motorhome->user_id =auth()->user()->id; 
     $motorhome->model_id= $request->input('model');
     $motorhome->beds= $request->input('beds');
     $motorhome->price= $request->input('price');
-    $motorhome->cover_image= $fileNameToStore;
     $motorhome->save();
+
+    if($request->hasFile('photos'))
+    {
+      $allowedfileExtension=['pdf','jpg','png','docx'];
+      $files = $request->file('photos');
+      foreach($files as $file)
+      {
+        $filename = $file->getClientOriginalName();
+        $extension = $file->getClientOriginalExtension();
+        $check=in_array($extension,$allowedfileExtension);
+        //dd($check);
+        if($check)
+        {
+          //$items = Item::create($request->all());
+          foreach ($request->photos as $photo) 
+          {
+            $filename = $photo->store('public/cover_images');
+            $insert = new Photo;
+            $insert->motorhome_id =  $motorhome->id;
+            $insert->url =  substr($filename, 6);
+            $insert->save();
+          }
+          return redirect('/motorhomes')->with('success', 'Motorhome added');
+        }
+        else
+        {
+          return redirect()->back()->with('error', 'Please only upload png or jpg images');
+        }
+      }
+    }
+    else{
+        $fileNameToStore='noimage.jpg';
+    }
+     
+    
     return redirect('/motorhomes')->with('success','Motorhome Added');
 
     }
-}
+
 
     /**
      * Display the specified resource.
@@ -140,7 +159,9 @@ class MotorhomeController extends Controller
           $motorhome->ratingOutput = $output;
         }
         $motorhomereviews = Motorhomereview::where('motorhome_id',$id)->orderBy('id','desc')->get();
-        return view('motorhomes.show')->with('motorhome', $motorhome )->with('motorhomereviews',$motorhomereviews)->with('average',$motorhome->rating)->with('count',$count);
+        $images = Photo::where('motorhome_id', $motorhome->id)->get();
+
+        return view('motorhomes.show')->with('motorhome', $motorhome )->with('motorhomereviews',$motorhomereviews)->with('average',$motorhome->rating)->with('count',$count)->with('images', $images);
     }
 
     /**
@@ -253,6 +274,11 @@ class MotorhomeController extends Controller
           }
         }
         $return->sortByDesc('rating');
+        foreach($return as $mh)
+        {
+          $photo = Photo::where('motorhome_id', $mh->id)->first();
+          $mh->cover_image = $photo->url;
+        }
         return view('motorhomes.search')->with('motorhomes', $return);
     }
 
@@ -304,6 +330,16 @@ class MotorhomeController extends Controller
           }
         }
         $motorhomes->sortByDesc('rating');
+        $motorhomes = $motorhomes->get();
+        foreach($motorhomes as $mh)
+        {
+          $photo = Photo::where('motorhome_id', $mh->id)->first();
+          $mh->cover_image = $photo->url;
+        }
+        //$countries = Country::where('name', 'LIKE', '%'.$rq->input('cntry').'%')->get();
+        //$cities = City::where('name', 'LIKE', '%'.$rq->input('city').'%')->get();
+        //$models = RVModel::where('name', 'LIKE', '%'.$query.'%')->pluck('id');
+        //return $motorhomes->get();
         return view('motorhomes.search')->with('motorhomes', $motorhomes);
     }
 }

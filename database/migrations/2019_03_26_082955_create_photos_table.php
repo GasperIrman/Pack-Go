@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMotorhomesTable extends Migration
+class CreatePhotosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateMotorhomesTable extends Migration
      */
     public function up()
     {
-        Schema::create('motorhomes', function (Blueprint $table) {
+        Schema::create('photos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('description');
-            $table->integer('beds');
-            $table->float('price');
-            $table->integer('rating')->nullable();;
-            $table->integer('model_id');
-            $table->integer('user_id');
+            $table->string('url');
+            $table->integer('motorhome_id');
             $table->timestamps();
+            
         });
     }
 
@@ -32,6 +29,6 @@ class CreateMotorhomesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('motorhomes');
+        Schema::dropIfExists('photos');
     }
 }
