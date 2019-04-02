@@ -41,3 +41,4 @@ class PhotoController extends Controller
 	}
 	return 'ni slik';
 	}
+}

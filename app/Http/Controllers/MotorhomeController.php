@@ -46,14 +46,15 @@ class MotorhomeController extends Controller
             $output .= '<li title="'.$i.'" class="rating" style="cursor: pointer; '.$color.' font-size:20px; display: inline-block">&#9733;</li>';
             $motorhome->ratingOutput = $output;
           }
+        }
         foreach($motorhomes as $mh)
         {
           $photo = Photo::where('motorhome_id', $mh->id)->first();
           $mh->cover_image = $photo->url;
         }
-          
+    
         return view('motorhomes.index')->with('motorhomes',$motorhomes);
-    }
+   
 }
 
     /**
