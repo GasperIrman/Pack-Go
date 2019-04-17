@@ -56,3 +56,9 @@ Route::get('/liveCity/{Query}', 'CityController@live');
 
 //Multiple file upload
 Route::post('/images', 'PhotoController@uploadSubmit');
+
+Route::get('/api/motorhomes', 'MotorhomeController@Motorhomes');
+Route::post('/api/motorhomes', 'MotorhomeController@MotorhomesFilter');
+Route::get('/api/users', 'UserController@Users');
+Route::post('/api/login', 'UserController@APIlogin');
+Route::post('/api/register', 'UserController@APIregister');
