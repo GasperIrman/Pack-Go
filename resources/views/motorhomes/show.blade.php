@@ -9,22 +9,22 @@
 
 
 
-            <div id="slider" style="position: relative;overflow: hidden;margin: 20px auto 0 auto;border-radius: 4px;">
+            
+            
+              @if($images->count() > 1)
+              <div id="slider" style="position: relative;overflow: hidden;margin: 20px auto 0 auto;border-radius: 4px;">
             <a href="#" class="control_next" style="position: absolute;top: 40%;z-index: 999;display: block;padding: 4% 3%;width: auto;height: auto;background: #2a2a2a;color: #fff;text-decoration: none;font-weight: 600;font-size: 18px;opacity: 0.8;cursor: pointer;right: 0"></a>
             <a href="#" class="control_prev" style="position: absolute;top: 40%;z-index: 999;display: block;padding: 4% 3%;width: auto;height: auto;background: #2a2a2a;color: #fff;text-decoration: none;font-weight: 600;font-size: 18px;opacity: 0.8;cursor: pointer;"></a>
             <ul style="position: relative; margin: 0; padding: 0; height: 200px; list-style: none;">
                @foreach($images as $image)
-                <li style="position: relative;display: block;float: left;margin: 0;padding: 0;width: 500px;height: 300px;background: #ccc;text-align: center;line-height: 300px;"><img style="height: 100%" src="/storage{{$image->url}}"></img></li>
+                <li style="position: relative;display: block;float: left;margin: 0;padding: 0;width: 500px;height: 300px;background: #ccc;text-align: center;line-height: 300px;"><img style="height: 100%" src="/storage{{$image->url}}"></li>
                @endforeach
+               </div>
+              @else
+                <img src="/storage{{$images->first()->url}}">
+              @endif
             </ul>  
-          </div>
-
-          <div class="slider_option" style="position: relative;margin: 10px auto;width: 160px;font-size: 18px;">
-            <input type="checkbox" id="checkbox">
-            <label for="checkbox">Autoplay Slider</label>
-          </div>
-
-
+          
 
   
            </div>

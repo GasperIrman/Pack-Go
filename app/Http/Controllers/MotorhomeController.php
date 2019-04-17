@@ -28,7 +28,12 @@ class MotorhomeController extends Controller
     public function index()
     {
         $motorhomes = Motorhome::orderBy('id','desc')->get();
-        
+        foreach($motorhomes as $mh)
+        {
+          $photo = Photo::where('motorhome_id', $mh->id)->first();
+          $mh->cover_image = $photo->url;
+        }
+          
         return view('motorhomes.index')->with('motorhomes',$motorhomes);
     }
 
@@ -215,6 +220,12 @@ class MotorhomeController extends Controller
         $models = RVModel::where('name', 'LIKE', '%'.$query.'%')->pluck('id');
         //return $models;
         $return = Motorhome::where('description', 'LIKE', '%'.$query.'%')->orWhereIn('model_id', $models)->get();
+
+        foreach($return as $mh)
+        {
+          $photo = Photo::where('motorhome_id', $mh->id)->first();
+          $mh->cover_image = $photo->url;
+        }
         return view('motorhomes.search')->with('motorhomes', $return);
     }
 
@@ -243,12 +254,17 @@ class MotorhomeController extends Controller
         if($rq->input('beds') != ''){
             $motorhomes->where('beds', $rq->input('beds'));
         }
-
+        $motorhomes = $motorhomes->get();
+        foreach($motorhomes as $mh)
+        {
+          $photo = Photo::where('motorhome_id', $mh->id)->first();
+          $mh->cover_image = $photo->url;
+        }
         //$countries = Country::where('name', 'LIKE', '%'.$rq->input('cntry').'%')->get();
         //$cities = City::where('name', 'LIKE', '%'.$rq->input('city').'%')->get();
         //$models = RVModel::where('name', 'LIKE', '%'.$query.'%')->pluck('id');
         //return $motorhomes->get();
-        return view('motorhomes.search')->with('motorhomes', $motorhomes->get());
+        return view('motorhomes.search')->with('motorhomes', $motorhomes);
     }
 
     public function Motorhomes()
