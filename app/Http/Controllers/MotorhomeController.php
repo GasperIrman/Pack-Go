@@ -23,7 +23,7 @@ class MotorhomeController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth',['except'=>['index','show']]);
+        $this->middleware('auth',['except'=>['index','show','Motorhomes','MotorhomesFilter']]);
     }
     public function index()
     {
@@ -342,5 +342,42 @@ class MotorhomeController extends Controller
         //$models = RVModel::where('name', 'LIKE', '%'.$query.'%')->pluck('id');
         //return $motorhomes->get();
         return view('motorhomes.search')->with('motorhomes', $motorhomes);
+    }
+
+    public function Motorhomes()
+    {
+      $motorhomes = Motorhome::all();
+      $json = json_encode($motorhomes);
+      return $json;
+    }
+
+    public function MotorhomesFilter(Request $rq)
+    {
+      $motorhomes = new Motorhome();
+        $motorhomes = $motorhomes->newQuery();
+        // = Motorhome::where('description', 'LIKE', '%'.$query.'%')->orWhereIn('model_id', $models)->get();
+        if($rq->input('search') != ''){
+          $models = RVModel::where('name', 'LIKE', '%'.$rq->input('search').'%')->pluck('id');
+          $motorhomes->where('description', 'LIKE', '%'.$rq->input('search').'%')->orWhereIn('model_id', $models);
+        }
+        if($rq->input('cntry') != ''){  
+          $countries = Country::where('name', 'LIKE', '%'.$rq->input('cntry').'%')->pluck('id');
+          $brands = Brand::whereIn('country_id', $countries)->pluck('id');
+          $models = RVModel::whereIn('brand_id', $brands)->pluck('id');
+
+          $motorhomes->whereIn('model_id', $models);
+            
+          }
+        if($rq->input('city') != ''){
+          $cities = City::where('name', 'LIKE', '%'.$rq->input('city').'%')->pluck('id');
+          $users = User::whereIn('city_id', $cities)->pluck('id');
+          $motorhomes->whereIn('user_id', $users);
+        }
+        if($rq->input('beds') != ''){
+            $motorhomes->where('beds', $rq->input('beds'));
+        }
+
+        $json = json_encode($motorhomes->get());
+        return $json;
     }
 }
