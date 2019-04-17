@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Hashing\BcryptHasher;
 use Illuminate\Support\Facades\Hash;
+use App\Mail;
 use App\User;
 
 class UserController extends Controller
@@ -16,7 +17,7 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => ['APIlogin', 'APIregister']]);
     }
 
     public function index()
@@ -151,6 +152,40 @@ class UserController extends Controller
         $user->provider = true;
         $user->update();
         return redirect()->back()->with('success', 'You have successfully applied to be a provider!');
+    }
+
+    public function Users()
+    {
+        $users = User::all();
+        $json = json_encode($users);
+        return $json;
+    }
+
+    public function APIlogin(Request $rq)
+    {
+        if($rq->input('email'))
+            $user = User::where('email', $rq->input('email'))->first();
+        $hasher = app('hash');
+        if($hasher->check($rq->input('password'), $user->password))
+        {
+            return json_encode($user);
+        }
+        else
+            return "Credentials incorrect";
+    }
+
+    public function APIregister(Request $rq)
+    {
+        if($rq->input('name') && !count(User::where('email', $rq->input('email'))->get()) && $rq->input('password') == $rq->input('password_confirmation'))
+        {
+            $user = new User;
+            $user->name = $rq->input('name');
+            $user->email = $rq->input('email');
+            $user->password = Hash::make($rq->input('password'));
+            $user->save();
+            return json_encode($user);
+        }
+        return 'Credentials not correct';
     }
 
 }
