@@ -37,8 +37,8 @@ class PhotoController extends Controller
 				return '<div class="alert alert-warning"><strong>Warning!</strong> Sorry Only Upload png , jpg , doc</div>';
 			}
 		}
-		return 'ne gre';
+		return 'error';
 	}
-	return 'ni slik';
+	return 'There is no pictures';
 	}
 }
