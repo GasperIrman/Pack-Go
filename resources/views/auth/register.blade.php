@@ -63,7 +63,20 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
                         </div>
+                        
+                        <div class="form-group row">
+                            <label for="city" class="col-md-4 col-form-label text-md-right">{{ __('City') }}</label>
 
+                            <div class="col-md-6">
+                                <select name="city">
+                                    @foreach($cities as $city)
+                                        <option value="{{$city->name}}">{{ $city->name }}</option>
+                                    @endforeach
+                                </select>
+                                
+                            </div>
+                        </div>
+                        
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

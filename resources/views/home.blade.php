@@ -63,7 +63,7 @@
                                               <h5>DESCRIPTION:</h5> 
                                               <p>{{$motorhome->description}}</p>
                                                     <h5>Average rating:</h5>
-                                                   <h4>treba popravit/5</h4>    
+                                                   <h4>{!! $motorhome->ratingOutput !!}</h4>    
                                               </div>
                                      </div>
                                  </div>  </div>

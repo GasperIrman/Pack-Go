@@ -7,10 +7,6 @@
             <div class="row">
            <div class="col-md-8 col-sm-8 ">
 
-
-
-            
-            
               @if($images->count() > 1)
               <div id="slider" style="position: relative;overflow: hidden;margin: 20px auto 0 auto;border-radius: 4px;">
             <a href="#" class="control_next" style="position: absolute;top: 40%;z-index: 999;display: block;padding: 4% 3%;width: auto;height: auto;background: #2a2a2a;color: #fff;text-decoration: none;font-weight: 600;font-size: 18px;opacity: 0.8;cursor: pointer;right: 0"></a>
@@ -21,11 +17,10 @@
                @endforeach
                </div>
               @else
-                <img src="/storage{{$images->first()->url}}">
+                <img style="width: 35vw" src="/storage{{$images->first()->url}}">
+                
               @endif
             </ul>  
-          
-
   
            </div>
            <div class="col-md-4 col-sm-4">

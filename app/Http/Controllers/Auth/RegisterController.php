@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\City;
 
 class RegisterController extends Controller
 {
@@ -54,6 +55,13 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
     }
+    
+    public function getRegister()
+    {
+        $products = City::all();
+    
+        return view('auth.register');
+    }
 
     /**
      * Create a new user instance after a valid registration.
@@ -66,7 +74,14 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'city_id' => City::where('name', $data['city'])->first()->id,
             'password' => Hash::make($data['password']),
         ]);
+    }
+    
+        public function showRegistrationForm()
+    {
+        $cities = City::all();
+        return view('auth.register')->with('cities', $cities);
     }
 }

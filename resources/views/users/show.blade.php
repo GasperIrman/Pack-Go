@@ -10,8 +10,8 @@
 		object-fit: cover;
 		object-position: center right;" alt="Profilna slika">
 	</div><br>
-Name: {{$user->name}}<br>
-Mail: {{$user->email}}<br>
+        Name: {{$user->name}}<br>
+        Mail: {{$user->email}}<br>
 
 @if($user->provider)
         @foreach ($user->motorhome->sortByDesc('created_at') as $rv)
@@ -20,7 +20,7 @@ Mail: {{$user->email}}<br>
                         <div class="well">
                                 <div class="row">
                                <div class="col-md-8 col-sm-8">
-                                   <img style="width:100%" src="/storage/cover_images/{{$rv->cover_image}}">
+                                   <img style="width:100%" src="/storage{{$rv->cover_image}}">
                                </div>
                                <div class="col-md-4 col-sm-4">
                                 <h2>{{$rv->model->name}}</h2>

@@ -6,6 +6,7 @@ use App\Rent;
 use App\Motorhome;
 use App\RVModel;
 use App\Photo;
+use App\MotorhomeReview;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -32,12 +33,27 @@ class HomeController extends Controller
         $user = User::find($user_id);
         $motorhomes = Motorhome::where('user_id', $user_id)->pluck('id');
         $myRent = Rent::whereIn('motorhome_id', $motorhomes)->get();
+        $photo = "";
         foreach($user->motorhome as $mh)
         {
             $photo = Photo::where('motorhome_id', $mh->id)->first();
+            $mh->rating = MotorhomeReview::where('motorhome_id', $mh->id)->average('rating');
             $mh->cover_image = $photo->url;
+            $output = '';
+              for($i = 1; $i <= 5; $i++)
+              {
+                if($i <= $mh->rating)
+                {
+                  $color = "color: #ffcc00;";
+                }
+                else
+                {
+                  $color = "color: #ccc;";
+                }
+                $output .= '<li title="'.$i.'" class="rating" style="cursor: pointer; '.$color.' font-size:20px; display: inline-block">&#9733;</li>';
+                $mh->ratingOutput = $output;
+              }
         }
-       	
         foreach($myRent as $re)
         {
         	$re->motorhome->cover_image = Photo::where('motorhome_id', $re->motorhome->id)->first()->url;

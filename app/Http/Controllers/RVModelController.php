@@ -161,4 +161,15 @@ class RVModelController extends Controller
             $return = 'No models found';
     return $return;
  }
+ 
+    public function Models()
+    {
+        $modelsPrev = RVModel::all();
+        $models = $modelsPrev->map(function ($model) {
+            return $model->only(['id', 'name']);
+        });
+        
+  
+    return json_encode($models);
+    }
 }

@@ -1,0 +1,32 @@
+[02-Apr-2019 09:19:01 Europe/Ljubljana] PHP Warning:  require(/home/grudnikprojekti/public_html/../vendor/autoload.php): failed to open stream: No such file or directory in /home/grudnikprojekti/public_html/index.php on line 24
+[02-Apr-2019 09:19:01 Europe/Ljubljana] PHP Fatal error:  require(): Failed opening required '/home/grudnikprojekti/public_html/../vendor/autoload.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/grudnikprojekti/public_html/index.php on line 24
+[02-Apr-2019 09:31:12 Europe/Ljubljana] PHP Warning:  symlink(): No such file or directory in /home/grudnikprojekti/public_html/symlinkcreate.php on line 3
+[02-Apr-2019 09:31:13 Europe/Ljubljana] PHP Warning:  symlink(): No such file or directory in /home/grudnikprojekti/public_html/symlinkcreate.php on line 3
+[02-Apr-2019 09:31:57 Europe/Ljubljana] PHP Warning:  symlink(): No such file or directory in /home/grudnikprojekti/public_html/symlinkcreate.php on line 3
+[02-Apr-2019 09:32:01 Europe/Ljubljana] PHP Warning:  symlink(): No such file or directory in /home/grudnikprojekti/public_html/symlinkcreate.php on line 3
+[02-Apr-2019 09:32:01 Europe/Ljubljana] PHP Warning:  symlink(): No such file or directory in /home/grudnikprojekti/public_html/symlinkcreate.php on line 3
+[02-Apr-2019 09:32:12 Europe/Ljubljana] PHP Warning:  symlink(): No such file or directory in /home/grudnikprojekti/public_html/symlinkcreate.php on line 3
+[02-Apr-2019 09:32:12 Europe/Ljubljana] PHP Warning:  symlink(): No such file or directory in /home/grudnikprojekti/public_html/symlinkcreate.php on line 3
+[02-Apr-2019 09:32:39 Europe/Ljubljana] PHP Warning:  symlink(): No such file or directory in /home/grudnikprojekti/public_html/symlinkcreate.php on line 3
+[02-Apr-2019 09:35:36 Europe/Ljubljana] PHP Warning:  symlink(): No such file or directory in /home/grudnikprojekti/public_html/symlinkcreate.php on line 3
+[02-Apr-2019 09:36:36 Europe/Ljubljana] PHP Warning:  symlink(): No such file or directory in /home/grudnikprojekti/public_html/symlinkcreate.php on line 3
+[02-Apr-2019 09:36:41 Europe/Ljubljana] PHP Warning:  symlink(): No such file or directory in /home/grudnikprojekti/public_html/symlinkcreate.php on line 3
+[02-Apr-2019 09:36:41 Europe/Ljubljana] PHP Warning:  symlink(): No such file or directory in /home/grudnikprojekti/public_html/symlinkcreate.php on line 3
+[02-Apr-2019 09:43:36 Europe/Ljubljana] PHP Warning:  symlink(): No such file or directory in /home/grudnikprojekti/public_html/symlinkcreate.php on line 3
+[02-Apr-2019 09:49:08 Europe/Ljubljana] PHP Warning:  symlink(): No such file or directory in /home/grudnikprojekti/public_html/symlinkcreate.php on line 2
+[02-Apr-2019 09:49:08 Europe/Ljubljana] PHP Warning:  symlink(): No such file or directory in /home/grudnikprojekti/public_html/symlinkcreate.php on line 2
+[02-Apr-2019 09:53:24 Europe/Ljubljana] PHP Warning:  symlink(): No such file or directory in /home/grudnikprojekti/public_html/symlinkcreate.php on line 2
+[02-Apr-2019 10:14:21 Europe/Ljubljana] PHP Warning:  symlink(): No such file or directory in /home/grudnikprojekti/public_html/symlinkcreate.php on line 2
+[02-Apr-2019 10:14:22 Europe/Ljubljana] PHP Warning:  symlink(): No such file or directory in /home/grudnikprojekti/public_html/symlinkcreate.php on line 2
+[02-Apr-2019 10:15:03 Europe/Ljubljana] PHP Warning:  symlink(): No such file or directory in /home/grudnikprojekti/public_html/symlinkcreate.php on line 2
+[02-Apr-2019 10:15:04 Europe/Ljubljana] PHP Warning:  symlink(): No such file or directory in /home/grudnikprojekti/public_html/symlinkcreate.php on line 2
+[02-Apr-2019 10:15:05 Europe/Ljubljana] PHP Warning:  symlink(): No such file or directory in /home/grudnikprojekti/public_html/symlinkcreate.php on line 2
+[02-Apr-2019 10:15:07 Europe/Ljubljana] PHP Warning:  symlink(): No such file or directory in /home/grudnikprojekti/public_html/symlinkcreate.php on line 2
+[02-Apr-2019 10:15:58 Europe/Ljubljana] PHP Warning:  symlink(): No such file or directory in /home/grudnikprojekti/public_html/symlinkcreate.php on line 2
+[02-Apr-2019 10:16:14 Europe/Ljubljana] PHP Warning:  symlink(): File exists in /home/grudnikprojekti/public_html/symlinkcreate.php on line 2
+[02-Apr-2019 11:26:29 Europe/Ljubljana] PHP Warning:  symlink(): File exists in /home/grudnikprojekti/public_html/symlinkcreate.php on line 2
+[02-Apr-2019 11:26:30 Europe/Ljubljana] PHP Warning:  symlink(): File exists in /home/grudnikprojekti/public_html/symlinkcreate.php on line 2
+[02-Apr-2019 11:27:33 Europe/Ljubljana] PHP Warning:  symlink(): File exists in /home/grudnikprojekti/public_html/symlinkcreate.php on line 2
+[02-Apr-2019 11:51:06 Europe/Ljubljana] PHP Warning:  symlink(): No such file or directory in /home/grudnikprojekti/public_html/symlinkcreate.php on line 2
+[02-Apr-2019 11:51:22 Europe/Ljubljana] PHP Warning:  symlink(): No such file or directory in /home/grudnikprojekti/public_html/symlinkcreate.php on line 2
+[02-Apr-2019 11:53:49 Europe/Ljubljana] PHP Warning:  symlink(): No such file or directory in /home/grudnikprojekti/public_html/symlinkcreate.php on line 2

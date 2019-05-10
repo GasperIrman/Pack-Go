@@ -46,13 +46,13 @@
 <h2 style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787E; font-size: 16px; line-height: 1.5em; margin-top: 0; text-align: left;">You've got a new rent!</h2>
 <table class="action" align="center" width="100%" cellpadding="0" cellspacing="0" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; margin: 30px auto; padding: 0; text-align: center; width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; -premailer-width: 100%;">
 </table>
-<p style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787E; font-size: 16px; line-height: 1.5em; margin-top: 0; text-align: left;">Check the rent info or delete it <a href="http://www.laravel.packngo">here</a></p>
+<p style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787E; font-size: 16px; line-height: 1.5em; margin-top: 0; text-align: left;">Check the rent info or delete it <a href="http://grudnik-projekti.eu/login">here</a></p>
 <p style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787E; font-size: 16px; line-height: 1.5em; margin-top: 0; text-align: left;">Regards,<br>Pack&amp;GO</p>
 <table class="subcopy" width="100%" cellpadding="0" cellspacing="0" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; border-top: 1px solid #EDEFF2; margin-top: 25px; padding-top: 25px;">
     <tr>
         <td style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">
             <p style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787E; line-height: 1.5em; margin-top: 0; text-align: left; font-size: 12px;">If you’re having trouble clicking the "this" button, copy and paste the URL below
-into your web browser: <a href="http://laravel.packngo" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #3869D4;">http://laravel.packngo</a></p>
+into your web browser: <a href="https:://grudnik-projekti.eu/login" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #3869D4;">http://grudnik-projekti.eu/login</a></p>
         </td>
     </tr>
 </table>

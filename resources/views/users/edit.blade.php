@@ -17,15 +17,14 @@
                 <div class="col-md-2 col-sm-2 ">
                 </div>
                 <div class="col-md-8 col-sm-8 ">
-    {!! Form::open(['method' => 'POST', 'action' => ['UserController@update', $user->id]]) !!}
+    {!! Form::open(['method' => 'POST', 'action' => ['UserController@update', $user->id], 'enctype'=>'multipart/form-data']) !!}
     {{ Form::hidden('_method', 'PUT')}}
     {{ Form::label('Name') }}
     {{ Form::text('name', $user->name) }} <br>
     {{ Form::label('Address') }}
-    {{ Form::text('address', $user->email) }}
-    {{ Form::text('password', $user->password, ['style' => 'visibility: hidden', 'id' => 'asd']) }}<br>
+    {{ Form::text('address', $user->email) }}<br>
     {{ Form::label('Profile picture') }}
-    {{ Form::file('image') }}<br>
+    {{ Form::file('profile_picture') }}<br>
     {{ Form::label('Change Password:') }} 
      {{ Form::button('Change Password', ['id' => 'PwrdBtn']) }} <br><br>
     {{ Form::submit('Update', ['class' => 'btn btn-outline-dark'])}}

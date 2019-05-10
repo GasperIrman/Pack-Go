@@ -20,7 +20,7 @@ class RentController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth',['except'=>['index','show']]);
+        $this->middleware('auth',['except'=>['index','show', 'Rent']]);
     }
     
     public function index()
@@ -168,4 +168,31 @@ class RentController extends Controller
         return redirect('/rents')->with('success','Rent Deleted ');
     
     }
+    
+    public function Rent(Request $rq)
+    {
+        $rq = json_decode($rq->getContent(), true);
+        if(isset($rq['rent_start']) && isset($rq['rent_end']) && isset($rq['m_id']) && isset($rq['u_id']))
+        {
+        $rs = $rq['rent_end'];
+        $rst = $rq['rent_start'];
+        $mid = $rq['m_id'];
+        $rez = Rent::where('motorhome_id','=',$mid)
+        ->whereBetween('rent_start', [$rst, $rs])
+        ->orWhereBetween('rent_end', [$rst, $rs]) 
+        ->get();
+            if (!$rez->count() && $rst < $rs)
+            {
+                $rent = new Rent;
+                $rent->motorhome_id = $rq['m_id']  ;
+                $rent->rent_start = $rq['rent_start']  ;
+                $rent->rent_end = $rq['rent_end']  ;
+                $rent->user_id = $rq['u_id'];
+                $rent->save();
+                return json_encode(array('data' => 'Success')); 
+            }
+        }
+        return json_encode(array('data' => 'Credentials incorrect')); 
+    }
+
 }

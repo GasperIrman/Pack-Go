@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Input;
 use App\Motorhome;
 use App\Brand;
 use App\RVModel;
@@ -10,6 +11,7 @@ use App\Country;
 use App\City;
 use App\User;
 use App\Photo;
+use Auth;
 use Illuminate\Http\Request;
 
 class MotorhomeController extends Controller
@@ -23,7 +25,7 @@ class MotorhomeController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth',['except'=>['index','show','Motorhomes','MotorhomesFilter']]);
+        $this->middleware('auth',['except'=>['index','show', 'Motorhomes', 'MotorhomesFilter', 'Motorhome', 'apicreate']]);
     }
     public function index()
     {
@@ -80,21 +82,23 @@ class MotorhomeController extends Controller
             'description' => 'required',
             'price' => 'required',
             'beds' => 'required',
-            'cover_image' => 'image|nullable|max:1999',
+            'cover_image' => 'image|max:1999',
            
         ]);
 
-    $motorhome = new Motorhome;
-    $motorhome->description = $request->input('description')  ;
-    $motorhome->user_id =auth()->user()->id; 
-    $motorhome->model_id= $request->input('model');
-    $motorhome->beds= $request->input('beds');
-    $motorhome->price= $request->input('price');
-    $motorhome->save();
+    
 
     if($request->hasFile('photos'))
     {
-      $allowedfileExtension=['pdf','jpg','png','docx'];
+      $motorhome = new Motorhome;
+        $motorhome->description = $request->input('description')  ;
+        $motorhome->user_id =auth()->user()->id; 
+        $motorhome->model_id= $request->input('model');
+        $motorhome->beds= $request->input('beds');
+        $motorhome->price= $request->input('price');
+        $motorhome->save();
+        
+      $allowedfileExtension=['gif','jpg','png', 'jpeg', 'heic'];
       $files = $request->file('photos');
       foreach($files as $file)
       {
@@ -122,7 +126,7 @@ class MotorhomeController extends Controller
       }
     }
     else{
-        $fileNameToStore='noimage.jpg';
+        return redirect()->back()->with('error', 'No image provided');
     }
      
     
@@ -199,18 +203,36 @@ class MotorhomeController extends Controller
         ]);
           if(Auth::user()->admin || Auth::user()->id == Motorhome::find($id)->user_id)
             //Handle File Upload
-            if($request->hasFile('cover_image')){
-            //Get filename with the extension
-            $filenamewithExt = $request->file('cover_image')->getClientOriginalName();
-            //Get just filename
-            $filename = pathinfo($filenamewithExt,PATHINFO_FILENAME);
-            //Get just ext
-            $extension = $request->file('cover_image')->guessClientExtension();
-            //FileName to store
-            $fileNameToStore = time().'.'.$extension;
-            //Upload Image
-            $path = $request->file('cover_image')->storeAs('public/cover_images/',$fileNameToStore);
+            if($request->hasFile('photos'))
+            {
+                Photo::where('motorhome_id', $id)->delete();
+            $allowedfileExtension=['gif','jpg','png', 'jpeg', 'heic'];
+              $files = $request->file('photos');
+              foreach($files as $file)
+              {
+                $filename = $file->getClientOriginalName();
+                $extension = $file->getClientOriginalExtension();
+                $check=in_array($extension,$allowedfileExtension);
+                //dd($check);
+                if($check)
+                {
+                  //$items = Item::create($request->all());
+                  foreach ($request->photos as $photo) 
+                  {
+                    $filename = $photo->store('public/cover_images');
+                    $insert = new Photo;
+                    $insert->motorhome_id =  $id;
+                    $insert->url =  substr($filename, 6);
+                    $insert->save();
+                  }
+                  return redirect()->back()->with('success', 'Motorhome edited successfully');
                 }
+                else
+                {
+                  return redirect()->back()->with('error', 'Please only upload png or jpg images');
+                }
+              }
+            }
      
 
               $motorhome = Motorhome::find($id);
@@ -343,41 +365,97 @@ class MotorhomeController extends Controller
         //return $motorhomes->get();
         return view('motorhomes.search')->with('motorhomes', $motorhomes);
     }
-
+    
     public function Motorhomes()
     {
       $motorhomes = Motorhome::all();
-      $json = json_encode($motorhomes);
+      foreach($motorhomes as $mh)
+      {
+          $mh->model = RVModel::where('id', $mh->model_id)->first();
+          $mh->user = User::where('id', $mh->user_id)->first();
+          $mh->url = 'http://grudnik-projekti.eu/storage'.Photo::where('motorhome_id', $mh->id)->first()->url;
+      }
+      $json = json_encode(array('data' => $motorhomes), JSON_UNESCAPED_SLASHES);
       return $json;
     }
-
+    
+    public function Motorhome($id)
+    {
+        $motorhome = Motorhome::where('id', $id)->first();
+        if(!isset($motorhome)) return;
+        $motorhome->model = RVModel::where('id', $motorhome->model_id)->get();
+        $motorhome->user = User::where('id', $motorhome->user_id)->get();
+        $motorhome->url = 'http://grudnik-projekti.eu/storage'.Photo::where('motorhome_id', $motorhome->id)->first();
+        return json_encode(array('data' => $motorhome), JSON_UNESCAPED_SLASHES);
+    }
+    
+    public function apicreate(Request $rq)
+    {
+        $rq = json_decode($rq->getContent(), true);
+        if(isset($rq['model_id']) && isset($rq['user_id']) && isset($rq['desc']) && isset($rq['price']) && isset($rq['beds']) && isset($rq['picture']))
+        {
+            $mh = new Motorhome();
+            $mh->model_id = $rq['model_id'];
+            $mh->user_id = $rq['user_id'];
+            $mh->description = $rq['desc'];
+            $mh->price = (double)$rq['price'];
+            $mh->beds = $rq['beds'];
+            $mh->save();
+            
+            $image = $rq['picture'];  // your base64 encoded
+            $image = str_replace('data:image/png;base64,', '', $image);
+            $image = str_replace(' ', '+', $image);
+            $imageName = str_random(10).'.'.'png';
+            \File::put(storage_path(). '/app/public/cover_images/' . $imageName, base64_decode($image));
+            
+            $photo = new  Photo();
+            $photo->motorhome_id = $mh->id;
+            $photo->url = '/cover_images/'.$imageName;
+            $photo->save();
+            
+            return json_encode(array('data' => 'Success'));
+        }
+        return json_encode(array('data' => 'Credentials incorrect'));
+        
+    }
+    
     public function MotorhomesFilter(Request $rq)
     {
-      $motorhomes = new Motorhome();
+        $rq = json_decode($rq->getContent(), true);
+        $motorhomes = new Motorhome();
         $motorhomes = $motorhomes->newQuery();
         // = Motorhome::where('description', 'LIKE', '%'.$query.'%')->orWhereIn('model_id', $models)->get();
-        if($rq->input('search') != ''){
-          $models = RVModel::where('name', 'LIKE', '%'.$rq->input('search').'%')->pluck('id');
-          $motorhomes->where('description', 'LIKE', '%'.$rq->input('search').'%')->orWhereIn('model_id', $models);
+        if(isset($rq['search'])){
+          $models = RVModel::where('name', 'LIKE', '%'.$rq['search'].'%')->pluck('id');
+          $motorhomes->where('description', 'LIKE', '%'.$rq['search'].'%')->orWhereIn('model_id', $models);
         }
-        if($rq->input('cntry') != ''){  
-          $countries = Country::where('name', 'LIKE', '%'.$rq->input('cntry').'%')->pluck('id');
+        if(isset($rq['cntry'])){  
+          $countries = Country::where('name', 'LIKE', '%'.$rq['cntry'].'%')->pluck('id');
           $brands = Brand::whereIn('country_id', $countries)->pluck('id');
           $models = RVModel::whereIn('brand_id', $brands)->pluck('id');
 
           $motorhomes->whereIn('model_id', $models);
             
           }
-        if($rq->input('city') != ''){
-          $cities = City::where('name', 'LIKE', '%'.$rq->input('city').'%')->pluck('id');
+        if(isset($rq['city'])){
+          $cities = City::where('name', 'LIKE', '%'.$rq['city'].'%')->pluck('id');
           $users = User::whereIn('city_id', $cities)->pluck('id');
           $motorhomes->whereIn('user_id', $users);
         }
-        if($rq->input('beds') != ''){
-            $motorhomes->where('beds', $rq->input('beds'));
+        if(isset($rq['beds'])){
+            $motorhomes->where('beds', $rq['beds']);
         }
-
-        $json = json_encode($motorhomes->get());
+        $motorhomes = $motorhomes->get();
+        foreach($motorhomes as $mh)
+          {
+              $mh->model = RVModel::where('id', $mh->model_id)->first();
+              $mh->user = User::where('id', $mh->user_id)->first();
+              $mh->url = Photo::where('motorhome_id', $mh->id)->first();
+          }
+        $json = json_encode(array('data' => $motorhomes), JSON_UNESCAPED_SLASHES);
         return $json;
     }
+    
+
+
 }

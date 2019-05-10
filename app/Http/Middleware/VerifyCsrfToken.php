@@ -19,6 +19,12 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+        'https://grudnik-projekti.eu/api/login*',
+        'https://grudnik-projekti.eu/api/users*',
+        'https://grudnik-projekti.eu/api/login*',
+        'https://grudnik-projekti.eu/api/register*',
+        'https://grudnik-projekti.eu/api/rent*',
+        'https://grudnik-projekti.eu/api/models*',
+        'https://grudnik-projekti.eu/api/motorhome*',
     ];
 }
